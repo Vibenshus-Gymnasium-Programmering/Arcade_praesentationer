@@ -113,7 +113,7 @@ Hvis I vil følge PEP-8 til punkt og prikke, så skal I altid sørge for at der 
 Hvis I følge alle anvisninger fra PEP-8, når de kommer frem i pycharm eller lignende, så lærer I hurtigere at skrive "pæne" pythonprogrammer.
 
 * Print flere linjer
-Man kan printe lige så mange linjer, som man vil. Det nemmeste er kalde =print=-funktionen flere gange.
+Man kan printe lige så mange linjer, som man vil. Det nemmeste er at kalde =print=-funktionen flere gange.
 
 
 #+begin_src python :exports both :results output :eval never-export
