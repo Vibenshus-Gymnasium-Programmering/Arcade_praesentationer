@@ -1,0 +1,6 @@
+Dette repo indeholder en række præsentationer ifm programmeringsundervisningen på Vibenshus Gymnasium.
+Man kan finde de enkelte præsentationer i de forskellige mapper og så vælge .org-filen.
+
+Indtil videre er der følgende præsentationer:
+
+- [[./01_printfunktionen/01_printfunktionen.org][01_printfunktionen]]
