@@ -1,6 +1,6 @@
 #+title: =Print=-funktionen
-#+subtitle: Jeres første simple programmer
-#+options: toc:nil timestamp:nil
+#+options: toc:t timestamp:nil
+Jeres første simple programmer i python
 * Indhold                                                               :TOC:
 - [[#indledning][Indledning]]
 - [[#ide-eller-editor--bash][IDE eller editor + bash?]]
@@ -131,7 +131,7 @@ print("Nothing ever worries me")
 #+end_src
 
 
-Hvert fald af =print= resulterer også i en ny linje.
+Hvert kald af =print= resulterer i en ny linje.
 Men er der andet I lægger mærke til?
 
 * Escape codes
