@@ -1,4 +1,4 @@
-#+title: =Print=-funktionen
+#+title: Print-funktionen
 #+options: toc:t timestamp:nil
 Jeres første simple programmer i python
 * Indhold                                                               :TOC:
@@ -153,8 +153,7 @@ print("I\'ve got no strings\nTo hold me down\nTo make me fret\nOr make me frown\
 #+end_src
 
 
-Bare fordi man kan, er det ikke altid en god idé. Man mange flere korte print-statements at foretrække frem for én lang.
-
+Bare fordi man kan, er det ikke altid en god idé. Mange flere korte print-statements er ofte at foretrække frem for én lang.
 
 * Triple quotes
 Man kan også anvende *triple quotes*, men lad være! De er beregnet til =docstrings= (dokumentation af funktioner, klasse osv).

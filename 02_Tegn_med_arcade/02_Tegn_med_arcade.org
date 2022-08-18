@@ -1,0 +1,253 @@
+#+title: Tegn med arcade
+#+subtitle: Programmering B
+#+options: toc:nil timestamp:nil 
+
+# * Indhold                                                               :TOC:
+# - [[#indledning][Indledning]]
+# - [[#opsætning-af-virtuelt-miljø-og-eventuelt-projekt][Opsætning af virtuelt miljø og eventuelt projekt]]
+#   - [[#opsætning-af-venv-vha-terminalen-git-bash][Opsætning af venv vha terminalen (git-bash)]]
+
+* Indledning
+I sidste forløb blev I introduceret til python gennem brugen af print-funktionen. I dette forløb skal vi tegne grafiske billeder vha af bibliotektet =arcade=. Denne præsentation tager udgangspunkt i [[https://learn.arcade.academy/en/latest/chapters/05_drawing/drawing.html]], hvor I kan læse nærmere.
+
+* Opsætning af virtuelt miljø og eventuelt projekt
+For at kunne anvende bibliotektet =arcade= skal det på en eller anden måde installeres på jeres computere. I pythonverdenen er det en feature at holde installation af biblioteker inden for såkaldte virtuelle miljøer (virtuel environments, fremadrettet =venv=), som kun knytter sig til det enkelte projekt. Dette er i modsætning til at installere biblioteker globalt.
+
+** Opsætning af venv vha terminalen (git-bash)
+Først skal I åbne en terminal/git-bash og navigere til en mappe, hvor I vil oprette en ny mappe til test af arcade-bibliotektet.
+
+#+begin_src shell
+cd sti/til/mappe
+#+end_src
+
+Så kan I oprette en ny mappe kaldet =arcade_til_test= og navigere ind i den efterfølgende
+
+#+begin_src shell
+mkdir arcade_til_test
+cd arcade_til_test
+#+end_src
+
+I denne mappe skal I nu til at oprette en mappe med et virtuelt miljø, hvori =arcade= kan installeres.
+
+Først tjekker I lige, at det er den rigtige version af =python=, I benytter, ved at skrive følgende i jeres =terminal=
+
+#+begin_src shell
+which python3
+#+end_src
+
+Hvis stien ser korrekt ud, kan I gå i gang.
+
+#+begin_src shell
+python3 -m venv arcade_venv
+#+end_src
+
+Her køres det indbyggede modul (-m) venv, som opretter en ny mappe, som hedder =arcade_venv=.
+
+Nu skal I *aktivere* jeres nye virtuelle miljø. Dette gøres således:
+
+#+begin_src shell
+source arcade_venv/bin/activate
+#+end_src
+
+Herfra kan I nu installere =arcade= vha =pip=
+
+#+begin_src shell
+python3 -m pip install arcade
+#+end_src
+
+Man kan også bare køre
+
+#+begin_src shell
+pip install arcade
+#+end_src
+
+Nu skulle I være i stand til at importere og anvende arcadebibliotektet i jeres pythonprogrammer, når bare I husker at aktivere jeres virtuelle miljø =arcade_venv=.
+
+** Opsætning i pycharm
+Hvis man hellere vil anvende et IDE til sin pythonprogrammering, så anbefaler jeg pycharm.
+
+I pycharm er det oplagt at oprette et nyt *projekt*.
+
+Når I opretter et nyt projekt, så sørg for at den rigtige version af python anvendes under *Python Interpreter*. Hvis I ikke allerede har oprettet et nyt virtuelt miljø (venv), så kan I få pycharm til at gøre det.
+
+Hvis I vil oprette et nyt venv, så vælg *Virtuelenv* under *New environment using*. Heruder skal I også vælge lokation for jeres venv-mappe og vælge en passende basisfortolker (Base interpreter).
+
+Hvis I vil anvende en venv, som I måske allerede har oprettet (f.eks. arcade_venv fra tidligere i dette dokument), så vælg *Previously configured interpreter*, og den korrekte sti til jeres venv.
+
+#+attr_org: :width 70%
+#+attr_html: :width 70%
+[[./img/pycharm_nyt_projekt.png]]
+
+* Tegning med arcade
+Nu kan vi endelig komme i gang med at tegne noget med =arcade=, men først skal vi lige have et vindue at tegne i. Her kommer to eksempler fra lærerbogen, som hører til arcade (se linket tidligere i præsentationen).
+
+Eksempel 1
+#+begin_src python -n :exports both :results output :eval never-export
+"""
+This is a sample program to show how to draw using the Python programming
+language and the Arcade library.
+"""
+
+# Import the "arcade" library
+import arcade
+
+# Open up a window.
+# From the "arcade" library, use a function called "open_window"
+# Set the dimensions (width and height)
+# Set the window title to "Drawing Example"
+arcade.open_window(600, 600, "Drawing Example")
+#+end_src
+
+#+RESULTS:
+
+Hov, hvad sker der?
+
+Vi vil gerne have vinduet til at forblive åbnet.
+
+Eksempel 2
+
+#+begin_src python -n :exports both :results output :eval never-export
+"""
+This is a sample program to show how to draw using the Python programming
+language and the Arcade library.
+"""
+
+# Import the "arcade" library
+import arcade
+
+# Open up a window.
+# From the "arcade" library, use a function called "open_window"
+# Set the window title to "Drawing Example"
+# Set the dimensions (width and height)
+arcade.open_window(600, 600, "Drawing Example")
+
+# Keep the window up until someone closes it.
+arcade.run()
+#+end_src
+
+#+RESULTS:
+
+** Ændring af baggrundsfarven
+Man kan sætte fast baggrundsfarve for hele vinduet, men for at få det vist, skal man også starte og slutte rendering. Se det følgende eksempel.
+
+Eksempel 3
+#+begin_src python -n :exports both :results output :eval never-export
+import arcade
+
+arcade.open_window(600, 600, "Drawing Example")
+
+arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+arcade.start_render()
+arcade.finish_render()
+arcade.run()
+#+end_src
+
+#+RESULTS:
+
+** Farver
+I det forrige eksempel blev der anvendt farven =arcade.csscolor.SKY_BLUE=. I kan slå navne på farver op her:
+
+- [[https://api.arcade.academy/en/latest/arcade.color.html][arcade.color]]
+- [[https://api.arcade.academy/en/latest/arcade.csscolor.html][arcade.csscolor]]
+
+=csscolor= anvender standard farvenavne fra css, så hvis I har arbejdet med css før, så er det oplagt at bruge den API.
+
+En 3. mulighed er blot at angive farven i RGB-format som f.eks. =(123, 255, 0)=, hvor hver bit kan gå fra 0 til 255 og angiver styrken for hhv rød, grøn og blå. 0 er ingen farve mens 255 er fuld farve. (0, 0, 0) er sort, mens (255, 255, 255) er hvid.
+
+Hvis I selv vil vælge en specifik farve kan I med fordel anvende googles farvevælger [[https://www.google.com/search?q=color+picker]], til at bestemme (r, g, b).
+
+** Koordinatsystemet i arcade
+#+attr_org: :width 30%
+#+attr_html: :width 30%
+[[./img/cartesian_coordinate_system.png]]
+
+Arcade anvender et traditionelt kartetisk koordinatsystem, som det kendt fra matematikken, men holder sig kun til første *kvadrant*.
+
+Det vil sige, at vinduets *nederste venstre hjørne* har koordinaterne (0,0). I de tidligere eksempler er vinduets bredde og højde angivet til 600 og 600. Det vil sige at *øverste højre hjørne* har koordinaterne (599, 599).
+
+(*Bonus*: Kan I forresten finde noget på figuren om det kartetiske koordinatsystem, som en matematiklærer ikke kan lide?)
+
+Hvis I har arbejdet med andre grafiske biblioteker (måske i andre sprog), så skal I være obmærksomme på, at det er meget almindeligt, at *øverste venstre hjørne* i et vindue har koordinaterne (0, 0) og at y-koordinatet herfra vokser nedad. Dette vil I f.eks. få at se, hvor vi skal arbejde med grafiske brugerflader i =pyside6= senere på året.
+
+* Arcade kan tegne mange primitive geometriske figurer
+I kan finde en liste over de understøttede primitive geometriske figurer ved at besøge oversigten og arcade-API'et [[https://api.arcade.academy/en/latest/quick_index.html]] og se under =arcade.draw_=.
+
+I det følgende eksempel tegnes der noget, men jeg har slette kommentarerne. Lad os i fælleskab finde ud af, hvad de forskellige linjer tegner.
+
+#+begin_src python -n :exports both :results output :eval never-export
+"""
+This is a sample program to show how to draw using the Python programming
+language and the Arcade library.
+"""
+
+# Import the "arcade" library
+import arcade
+
+# Open up a window.
+# From the "arcade" library, use a function called "open_window"
+# Set the window title to "Drawing Example"
+# Set the dimensions (width and height)
+arcade.open_window(600, 600, "Drawing Example")
+
+# Set the background color
+arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+# Get ready to draw
+arcade.start_render()
+
+#arcade.draw_lrtb_rectangle_filled(0, 599, 300, 0, arcade.csscolor.GREEN)
+#
+#arcade.draw_rectangle_filled(100, 320, 20, 60, arcade.csscolor.SIENNA)
+#
+#arcade.draw_circle_filled(100, 350, 30, arcade.csscolor.DARK_GREEN)
+#
+#arcade.draw_rectangle_filled(200, 320, 20, 60, arcade.csscolor.SIENNA)
+#arcade.draw_ellipse_filled(200, 370, 60, 80, arcade.csscolor.DARK_GREEN)
+#
+#arcade.draw_rectangle_filled(300, 320, 20, 60, arcade.csscolor.SIENNA)
+#arcade.draw_arc_filled(300, 340, 60, 100, arcade.csscolor.DARK_GREEN, 0, 180)
+#
+#arcade.draw_rectangle_filled(400, 320, 20, 60, arcade.csscolor.SIENNA)
+#arcade.draw_triangle_filled(400, 400, 370, 320, 430, 320, arcade.csscolor.DARK_GREEN)
+#
+#arcade.draw_rectangle_filled(500, 320, 20, 60, arcade.csscolor.SIENNA)
+#arcade.draw_polygon_filled(((500, 400),
+#                            (480, 360),
+#                            (470, 320),
+#                            (530, 320),
+#                            (520, 360)
+#                            ),
+#                           arcade.csscolor.DARK_GREEN)
+#
+#arcade.draw_circle_filled(500, 550, 40, arcade.color.YELLOW)
+#
+#arcade.draw_line(500, 550, 400, 550, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 600, 550, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 500, 450, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 500, 650, arcade.color.YELLOW, 3)
+#
+#arcade.draw_line(500, 550, 550, 600, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 550, 500, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 450, 600, arcade.color.YELLOW, 3)
+#arcade.draw_line(500, 550, 450, 500, arcade.color.YELLOW, 3)
+#
+#arcade.draw_text("Arbor Day - Plant a Tree!",
+#                 150, 230,
+#                 arcade.color.BLACK, 24)
+
+arcade.finish_render()
+
+arcade.run()
+#+end_src
+
+#+RESULTS:
+
+* Nu skal I til at arbejde
+#+begin_export html
+<iframe src="https://giphy.com/embed/27Y1W0GCKQtDq" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hard-work-27Y1W0GCKQtDq"></a></p>
+#+end_export
+
+Med udgangspunkt i det netop gennemgåede skal I til at tegne jeres egne billeder vha =arcade=. Følg linket til jeres nye opgave, som ligger på github classroom. Når opgaven er accepteret skal i klone det oprettede git repo til jeres lokale maskine. Husk at anvende al jeres viden omkring fornuftig anvendelse af =git=. Feature branching, merge/rebase og pushe, så jeg kan se, at I får lavet noget. :) God fornøjelse.
+
+[[https://classroom.github.com/a/-LD3l093][Arcade Opgave 02 Tegn et billede]]
