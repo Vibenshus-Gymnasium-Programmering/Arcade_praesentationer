@@ -244,9 +244,9 @@ arcade.run()
 #+RESULTS:
 
 * Nu skal I til at arbejde
-#+begin_export html
-<iframe src="https://giphy.com/embed/27Y1W0GCKQtDq" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hard-work-27Y1W0GCKQtDq"></a></p>
-#+end_export
+#+attr_org: :width 40%
+#+attr_html: :width 40%
+[[./img/arbejd_arbejd.gif]]
 
 Med udgangspunkt i det netop gennemgåede skal I til at tegne jeres egne billeder vha =arcade=. Følg linket til jeres nye opgave, som ligger på github classroom. Når opgaven er accepteret skal i klone det oprettede git repo til jeres lokale maskine. Husk at anvende al jeres viden omkring fornuftig anvendelse af =git=. Feature branching, merge/rebase og pushe, så jeg kan se, at I får lavet noget. :) God fornøjelse.
 

@@ -4,4 +4,4 @@ Man kan finde de enkelte præsentationer i de forskellige mapper og så vælge .
 Indtil videre er der følgende præsentationer:
 
 - [[./01_printfunktionen/01_printfunktionen.org][01_printfunktionen]]
-- [[./02_Tegn_med_arcade/][02_Tegn_med_arcade]]
+- [[./02_Tegn_med_arcade/02_Tegn_med_arcade.org][02_Tegn_med_arcade]]
