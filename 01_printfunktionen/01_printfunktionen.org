@@ -74,8 +74,6 @@ Prøv lige at skrive dette ind.
 Print("Her er der da ingen fejl")
 #+end_src
 
-#+RESULTS:
-
 
 Kan I finde fejlen?
 
@@ -205,7 +203,7 @@ Opgaven hedder: *Arcade Opgave 01 Første program*
 
 Her er der igen tale om et git-repo, som I skal =klone= til jeres lokale maskine et sted på jeres computer, som I kan finde igen. Typisk i en mappe til programmering under skole eller lignende.
 
-I skal følge vejledningen i filen READEME.org
+I skal følge vejledningen i filen README.org
 I skal uploade jeres besvarelse ved at =committe= og =pushe= til jeres git-repo.
 * Logbog
 Til sidst skal I selvfølgelig sørge for at updatere jeres logbog. Skriv det ned, som I lærte i dag.
