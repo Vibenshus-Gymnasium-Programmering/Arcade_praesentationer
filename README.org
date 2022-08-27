@@ -5,3 +5,4 @@ Indtil videre er der følgende præsentationer:
 
 - [[./01_printfunktionen/01_printfunktionen.org][01_printfunktionen]]
 - [[./02_Tegn_med_arcade/02_Tegn_med_arcade.org][02_Tegn_med_arcade]]
+- [[./03_Variabler/03_Variabler.org][03_Variabler]]

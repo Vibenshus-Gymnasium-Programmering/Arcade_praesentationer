@@ -1,0 +1,371 @@
+#+title: Variabler
+#+subtitle: Programmering B
+#+options: toc:nil timestamp:nil 
+
+* Introduktion
+Denne præsentation har sit afsæt i [[https://learn.arcade.academy/en/latest/chapters/07_expressions/expressions.html]].
+
+Præsentationen vil have fokus på at
+- kunne deklarere og anvende =variabler=
+- kunne anvende =variabler= i udtryk (expressions)
+
+
+* Anvendelse af variabler
+En variabel i programmering og i sproget =python= er et mærkat, som sættes på en værdi, der kan variere.
+
+Python kan f.eks. bruges, som lommeregner. Lad os antage at vi vil bruge funktionen
+
+$$f(x)=2x^2-3x-4$$
+
+og så udregne funktionsværdierne når x er hhv 1, 2, 3, 4,5 osv.
+
+For x=1 kan vi f.eks. skrive følgende for at beregne f(1)
+#+begin_src python :exports both :results output :eval never-export
+print(2*1**2 -3*1-4)
+#+end_src
+
+Hvis vi så skal gøre det samme for de andre x-værdier, skal vi ændre 1-tallet alle steder i udtrykket.
+
+#+begin_src python :exports both :results output :eval never-export
+print(2*1**2 -3*1-4)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+-2
+#+end_example
+
+Det bliver hurtigt kedeligt i længden!
+
+I stedet kan vi *deklarere* en =variabel=, så vi kun skal ændre værdien *ét* sted.
+
+#+begin_src python :exports both :results output :eval never-export
+x = 1
+
+print(2*x**2 -3*x-4)
+#+end_src
+
+*Prøv selv at se, hvad der er hurtigst for jer, hvis I skal bruge koden til at beregne de fem funktionsværdier. Kodestumperne kan nemt kopieres fra denne præsentation, hvis den vises vha github.*
+
+Her er *x* en variabel som bliver *sat til* værdien 1. = sætter x til den værdi, der står til *højre* for lighedstegnet. I Matematik kan ligninger læses både fra venstre og fra højre. I programmering læses udtrykkene *altid* fra venstre mod højre.
+
+* Navngivning af variable
+
+Forskellige programmeringssprog har forskellige dos and don'ts. I python /bør/ variabelnavne være deskriptive, kun indeholde små bogstaver, og hvis der er flere ord i variabelnavnet, så adskild ordene med underscore (_). I python kan variable *ikke* starte med et tal, eller indeholder mellemrum (space), eller andre symboler end underscore.
+
+** God variabelnavne:
+- temperatur_i_celcius
+- daenerys_drage_1 (Drogon)
+- daenerys_drage_2 (Rhaegal)
+- daenerys_drage_3 (Viserion)
+- bil_fart
+- antal_boern (Brug helst kun ASCII-karakterer)
+ 
+** Dårlige variabelnavne, som dog stadig virker:
+- temperaturICelsius - (java taler for camelCase, men ikke python) brug små bogstaver og indsæt underscores.
+- x - er for kort. Det er ikke beskrivende nok. (Måske kun, hvis der er tale om en matematisk funktion).
+- Vingegaard - Starter med stort bogstav. Det skal skrives med småt.
+
+  
+** Variabelnavne som ikke virker:
+- daenerys drage 1 - Her er der mellemrum. Brug underscores.
+- 4ever - Starter med et tal. Det dur ikke.
+
+  
+** KONSTANTER
+Nogle gange vil man gemme en *konstant*, som ikke skal ændre sig mens programmet kører. Som konvention skrives alle bogstaver i konstanter med store bogstaver. Konstanter er de eneste variabler, som skal skrives med stort.
+
+Eksempler
+#+begin_src python :exports both :results output :eval never-export
+PI = 3.14159
+SKAERMBREDDE = 600
+ROED = (255, 0, 0)
+#+end_src
+
+** Eksempler med variabelnavne
+
+Hvad gør følgende kode?
+
+#+begin_src python :exports both :results output :eval never-export
+k = 900
+l = 33
+kpl = k / l
+print(kpl)
+#+end_src
+
+Det kan jo næsten være hvad som helst.
+
+Det er meget nemmere at forstå kode, hvis der er kommentarer i koden og variablerne har deskriptive navne
+
+#+begin_src python :exports both :results output :eval never-export
+# Beregning af loebehastighed
+antal_km = 5.39
+tid_i_min = 26
+fart_i_km_i_timen = 5.39 / (26 / 60)
+print(fart_i_km_i_timen)
+#+end_src
+
+
+* Udtryk (expressions)
+
+** Operatorer
+| Operator | Beskrivelse                 |
+|----------+-----------------------------|
+| +        | Addition                    |
+| -        | Subtraktion                 |
+| *        | Multiplikation              |
+| **       | Opløfte                     |
+| /        | Division                    |
+| //       | Heltalsdivision             |
+| %        | Modulus (rest ved division) |
+
+I programmering skal man skrive alle operatorer ind i regnestykket.
+
+#+begin_src python :exports both :results output :eval never-export
+x = 3
+y = 2*x
+z = 2*(3*x + y)
+print(x, y, z)
+#+end_src
+
+Hvis man fjerner f.eks. gangetegnet, så virker det ikke.
+
+** Lighedstegnet (assigment operatoren)
+
+Dette virker fint. 
+#+begin_src python :exports both :results output :eval never-export
+x = 3 + 4
+print(x)
+#+end_src
+
+Men dette gør ikke.
+#+begin_src python :exports both :results output :eval never-export
+3 + 4 = x
+print(x)
+#+end_src
+
+Udtrykket på højre side af lighedstegnet beregnes og symbolet på venstre side sættes lig denne værdi.
+
+Lighedstegnet i programmering er ikke det samme som i matematik. Man kan skrive nogle "mærkelige" ting i programmering, som ikke findes i matematikken.
+
+Dette virker, som vi regner med.
+#+begin_src python :exports both :results output :eval never-export
+x = 3
+print(x)
+#+end_src
+
+
+Men hvad gør dette?
+#+begin_src python :exports both :results output :eval never-export
+x = 3
+x = x + 1
+print(x)
+#+end_src
+
+** Forøgelse af værdier
+Hvad sker der her? Hvad er forskellen
+#+begin_src python -n :exports both :results output :eval never-export
+x = 3
+print(x+1)
+print(x+1)
+x = x + 1
+print(x+1)
+#+end_src
+
+** Forøg og formindsk
+Der er mange måder, hvorpå man kan forøge og formindske værdien af en variabel.
+
+#+begin_src python :exports both :results output :eval never-export
+# Saetter x til vaerdien
+x = 3
+print(x)
+# Foroeg x med 1
+x = x + 1
+print(x)
+# Formindsk x med 2
+x = x - 2
+print(x)
+# Multiplicer x med 10
+x = 10 * x
+print(x)
+# Divider x med 5
+x = x / 5
+print(x) 
+#+end_src
+
+I ~python~ er der specielle genveje til disse ændringer
+
+| Operator | Beskrivelse                |
+|----------+----------------------------|
+| =        | Tildeling af værdi         |
+| +=       | Forøgelse af værdi med     |
+| -=       | Formindskelse af værdi med |
+| *=       | Multiplicer med            |
+| **=      | Opløst i                   |
+| /=       | Divider med                |
+| //=      | Heltalsdivider med         |
+| %=       | Modulus med                |
+
+De forrige eksempler kan nu skrives some
+
+#+begin_src python :exports both :results output :eval never-export
+# Saetter x til vaerdien
+x = 3
+print(x)
+# Foroeg x med 1
+x += 1
+print(x)
+# Formindsk x med 2
+x -= 2
+print(x)
+# Multiplicer x med 10
+x *= 10 
+print(x)
+# Divider x med 5
+x /= 5
+print(x)
+#+end_src
+
+*** Obs
+#+begin_src python :exports both :results output :eval never-export
+x = x + 1
+#+end_src
+
+og
+
+#+begin_src python :exports both :results output :eval never-export
+x += 1
+#+end_src
+
+gør det samme. Men hvad gør følgende?:
+
+#+begin_src python :exports both :results output :eval never-export
+x += x + 1
+#+end_src
+
+** Anvendelse af udtryk til funktionskald
+Lad os tegne en cirkel på midten af en skærm med bredden 800 px og højden 600 px. Cirklen skal have en radius på 50 px.
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+
+arcade.open_window(800, 600, "En cirkel i midten")
+
+arcade.set_background_color(arcade.csscolor.WHITE)
+
+arcade.start_render()
+
+arcade.draw_circle_filled(400, 300, 50, arcade.csscolor.BLUE)
+
+arcade.finish_render()
+
+arcade.run()
+#+end_src
+
+Lad os nu ændre dimensionerne på skærmen til f.eks. 600x400. Vi skal altså ændre 4 værdier i koden. 800 -> 600, 600 -> 400, 400 -> 300 og 300 -> 200
+
+
+Dette kan gøres bedre vha variabler/KONSTANTER
+
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "En cirkel i midten")
+
+arcade.set_background_color(arcade.csscolor.WHITE)
+
+arcade.start_render()
+
+arcade.draw_circle_filled(SKAERMBREDDE / 2, SKAERMHOEJDE / 2, 50, arcade.csscolor.BLUE)
+
+arcade.finish_render()
+
+arcade.run()
+#+end_src
+
+Nu kan vi nøjes med at ændre på ~SKAERMBREDDE~ og ~SKAERMHOEJDE~ ét sted i koden.
+
+
+* Print af variable
+Hvordan kan vi få python til at skrive "Mit navn er Jacob", hvor Jacob er værdien af en variabel, der hedder navn?
+
+Her er en række mere eller mindre gode måder at gøre det på:
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Jacob"
+print("Mit navn er", navn)
+#+end_src
+
+Hvad nu, hvis vi vil have et punktum med?
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Jacob"
+print("Mit navn er", navn, ".")
+#+end_src
+
+
+Det ser ikke helt rigtig nu. Lad os prøve noget andet.
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Jacob"
+print("Mit navn er"+ navn+ ".")
+#+end_src
+
+
+Næsten. Der mangler lige et mellemrum.
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Jacob"
+print("Mit navn er "+ navn+ ".")
+#+end_src
+
+
+
+#+begin_src python :exports both :results output :eval never-export
+navn = 11
+print("Mit navn er "+ navn+ ".")
+#+end_src
+
+Hmm, det kan løses ved at =konvertere= heltallet 11 til en tekststring
+
+#+begin_src python :exports both :results output :eval never-export
+navn = 11
+print("Mit navn er "+ str(navn)+ ".")
+#+end_src
+
+Der findes nemmere måder at gøre dette på i python.
+
+Man kan anvende ~format~
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Eleven"
+alder = 11
+print("Mit navn er {0}. Min alder er {1}.".format(navn, alder))
+#+end_src
+
+
+Men endnu bedre er det at anvende *formatterede strenge* (f-strings)
+
+#+begin_src python :exports both :results output :eval never-export
+navn = "Eleven"
+alder = 11
+print(f"Mit navn er {navn}. Min alder er {alder}.")
+#+end_src
+
+f-strings blev først indført i python ved version 3.6. Syntaksen er således, at der skal skrives et lille *f* foran citationstegnet og variabelnavnet i selve tekststrengen skal omgives med krøllede parenteser (curly brackets, {}).
+
+Fidusen med f-strings er, at det nemt at læse selve koden og direkte forstå, hvad der printes ud.
+
+* Tjekspørgsmål
+Følgende spørgsmål skal skrives ind i og besvares i jeres Logbog.
+
+1. Hvilke regler sætter ~python~ op for gode variabelnavne? Giv nogle eksempler.
+2. Giv eksempler på, hvordan de 7 forskellige regneoperatorer anvendes. (+, -, *, **, /, // og %).
+3. Forklar, hvordan *heltalsdivision* (//) fungerer. Giv nogle eksempler.
+4. Forklar, hvad *modulus*-operatoren gør (%). Giv nogle eksempler.
+5. Omskriv følgende ligning $A = \pi \left( \frac{d}{2} \right)^2$, så den virker i python. Der er tale om beregning af arealet af en cirkel. I kan sætte diameteren til 5.
+6. Giv eksempler på anvendelse af forøgning og formindskelse af værdier.
+7. Giv et eller flere eksempler på brugen af f-strings, når der skal printes tekst ud, hvor variable kan anvendes.
