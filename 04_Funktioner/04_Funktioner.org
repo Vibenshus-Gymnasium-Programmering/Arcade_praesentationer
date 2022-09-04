@@ -1,0 +1,645 @@
+#+title: Funktioner
+#+subtitle: Programmering B
+#+options: toc:nil timestamp:nil 
+
+* Introduktion
+I kan se mere om emnet her: [[https://learn.arcade.academy/en/latest/chapters/08_functions/functions.html]]
+
+
+* Formålet med funktioner
+- Skal gøre koden nemmere at læse. *Giv funktionerne passende navne.*
+- Abstraktion af kode. Tegn f.eks. et træ, i stedet for at skulle gerne alle delene i et træ hver gang hver for sig.
+- Genbrug af kode. *Kald den samme funktion om og om igen (med forskellige argumenter)*
+- Opdel komplekse problemer i flere simple problemer. *Divide and conquer*.
+- Gør det nemmere at vedligeholde kode.
+
+  
+* Grundlæggende definition af en funktion
+
+Her er et eksempel på en funktion, som kan skrive hej til konsolen.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen():
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+#+end_src
+
+- ~def~ står for *define*.
+- Efter def kommer selve funktionens navn. Her ~udskriv_hilsen~.
+  - starter per konvention med lille bogstav. (Man kan godt bruge store bogstaver i funktionsnavne, men det er ikke god pythonstil.)
+  - Mellemrum er ikke tilladt. Brug *underscore* i stedet for.
+  - Efter det første lille bogstav i funktionsnavnet kan man efterfølgende kun bruge bogstaver, tal og underscore.
+- Parenteserne skal være der. De kan indeholde parametre til funktionen. Se nærmere senere.
+- Til sidst i samme linje kommer kolon :.
+- På næste linje kommer selve funktionens ~krop~. Alle linjer skal her være rykket ind med 4 mellemrum ift. ~def~. Andre sprog som c og java anvender krøllede parenteser {} til at indikere kroppen af en funktion.
+- Den første linje efter funktionskroppen, *som ikke er indrykket med 4 mellemrum*, signalerer at definitionen af funktionen er slut.
+
+Den naturlige plads for definition af funktioner er lige /efter/ *import* af andre biblioteker og /før/ resten af programmet.
+
+* Kald af funktioner
+Når en funktion er blevet defineret, sker der ikke noget. Den skal først *kaldes*. Definitionen af en funktion er lige som en madopskrift. Opskriften gør ikke noget i sig selv, men kan bruges til f.eks. at bage de bedste kager i verden.
+
+Når man skal kalde en funktion, skal man skrive funktionsnavnet og parenteserne (eventuelt med parametre).
+
+Vi viser det lige her.
+
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen():
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+
+udskriv_hilsen()
+udskriv_hilsen()
+#+end_src
+
+Her kan I se, at definitionen af funktionen slutter ved linje 5, hvor ~udskrive_hilsen~ kaldes første gang.
+
+* Definition og kald af hovedfunktion (main)
+
+#+begin_src python -n :exports both :results output :eval never-export
+from datetime import datetime
+
+def udskriv_hilsen():
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+
+
+def hvad_er_klokken():
+    nu_tid = datetime.now().time()
+
+    print(f"Klokken er lige nu: {nu_tid}")
+
+if __name__ == "__main__":
+    udskriv_hilsen()
+    hvad_er_klokken()
+#+end_src
+
+Det "mærkelige" kald af mainfunktionen skyldes, at ~import~ af en fil også kører filen. Det sidste ~if~-statement forhindre kaldene af ~udskriv_hilsen~ og ~hvad_er_klokken~ med mindre selve filen er hovedprogrammet og ikke en importeret fil i et andet program. Meget mere om det senere.
+
+* Parametre til funktioner
+
+Funktioner kan, som tidligere indikeret, indholde parametre, og kan modtage argumenter, når de kaldes. Det er dem, som skal stå i parenteserne.
+
+** Positionelle parametre
+Vi prøver lige med ~udskriv_hilsen~ igen. Denne gang bare med navn og alder som parametre.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen(navn, alder):
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+    print(f"Mit navn er {navn}, og min alder er {alder} år.")
+
+udskriv_hilsen("Jacob", 38)
+#+end_src
+
+Når funktionen ~udskriv_hilsen~ kaldes er "Jacob" og 38 *argumenter* til funktionen.
+
+- Parametre hører altså til *definitionen* af en funktion.
+- Argumenter er de værdier parametrene skal have, når en funktion kaldes.
+  
+Hvad sker der, hvis jeg f.eks. ikke skriver 38 som alder?
+
+** Parameternavne
+Man kan også kalde en funktion med givne parametre ved at anvende parametrenes navne. Her er to eksempler.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen(navn, alder):
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+    print(f"Mit navn er {navn}, og min alder er {alder} år.")
+
+udskriv_hilsen(navn = "Jacob", alder = 38)
+udskriv_hilsen(alder = 24000, navn = "Gandalf")
+#+end_src
+
+
+Ved at anvende parameternavnene er rækkefølgen ligegyldig. *Alle parametre skal dog stadig angives.*
+
+Man kan også blande positionelle parametre og parameternavne. Hvis man gør dette, så skal alle positionelle parametre stå først. Der kan altså ikke stå positionelle parametre til højre for en parameter angivet med parameternavn.
+
+** Standardværdier til parametre
+Hvis man anvender parametrenavne sat lig med en værdi i *definitionen* af funktionen, er der tale om standardværdier.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen_med_standard_vaerdier(navn = "Voldemort", alder = 71):
+    """ Denne tekststreng anvendes som dokumentation af funktionens virkemaade. """
+    print("Hej med jer.")
+    print(f"Mit navn er {navn}, og min alder er {alder} år.")
+
+udskriv_hilsen_med_standard_vaerdier()
+udskriv_hilsen_med_standard_vaerdier("Jacob")
+udskriv_hilsen_med_standard_vaerdier(alder = 82, navn = "Margrethe")
+#+end_src
+
+Nu kan I se, at funktionen kan kaldes både med og uden parametre. Hvis den kaldes uden parametre, så anvendes standardværdierne.
+
+** Ukendt antal parametre/argumenter
+
+*** *args
+Her er et eksempel på brugen et antal ukendte positionelle parametre. Det vigtige er stjernen (asterisk), der står lige foran ~navne_der_skal_hilses_paa~. Normalt i python 
+
+I eksemplet er den kommaseparerede liste med navne en ~tuple~ (adskilt med komma). Denne bliver *udpakket* vha stjernen, som står foran.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_personlig_hilsen(navn_paa_afsender, alder_paa_afsender, *navne_der_skal_hilses_paa):
+    print("Hej")
+    for navn in navne_der_skal_hilses_paa:
+        print(navn)
+    print(f"Mit navn er {navn_paa_afsender}, og min alder er {alder_paa_afsender}.")
+    print("Haaber at det gaar godt.")
+
+udskriv_personlig_hilsen("Jesus", 2022, "Markus", "Lukas", "Peter", "Johannes")
+
+navneliste = ["Rip", "Rap", "Rup"]
+
+udskriv_personlig_hilsen("Anders And", 88, navneliste)
+# Hvad er forskellen?
+#udskriv_personlig_hilsen("Anders And", 88, *navneliste)
+#+end_src
+
+*** **kwargs
+Hvis man gerne vil have et ukendt antal navngivne parametre/argumenter, skal man bruge 2 stjerner. ~kwargs~ står for keyword arguments. Igen er det de 2 stjerner foran, som er det vigtige. Her er der tale om en *mapping* i stedet for en udpakning. Dette er det samme som at udpakke en ~dictionary~ i python.
+
+Lad os se på et eksempel.
+
+#+begin_src python -n :exports both :results output :eval never-export
+def udskriv_hilsen_med_kwargs(navn_afsender, alder_afsender, **navne):
+    print("Hej")
+    for navn in navne.values():
+        print(navn)
+    print(f"Mit navn er {navn_afsender}, og min alder er {alder_afsender}.")
+    print("Over and out.")
+
+udskriv_hilsen_med_kwargs("Biskop Absalon",29, foerste="Svend", anden="Knud", tredje="Valdemar")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Hej
+Svend
+Knud
+Valdemar
+Mit navn er Biskop Absalon, og min alder er 29.
+Over and out.
+#+end_example
+
+Hvis man vil kombinere både positionelle kendte parametre, ukendt antal parametre (*args) og ukendt antal navngivne parametre (**kwargs), så skal man have de positionelle først, derefter *args og til sidst **kwargs.
+
+#+begin_src python :exports both :results output :eval never-export
+def test_af_args_og_kwargs(navn, alder, *modtagere, **aldre):
+    print("Hej")
+    for modtager in modtagere:
+        print(modtager)
+    output = "Jeres aldre er: "
+    for modtageralder in aldre.values():
+        output = output + str(modtageralder) + ", "
+    print(output)
+    print(f"Hilsen {navn} på {alder} år.")
+
+test_af_args_og_kwargs("Jacob", 38, "Birthe", "Anna", "Flemming", Birthe_alder = 12, Anna_alder = 33, Flemming_alde = 55)
+#+end_src
+
+* Returværdier
+
+Funktioner kan ikke kun modtage værdier, de kan også *returnere* værdier. Til dette benyttes ordet ~return~.
+
+Et eksempel fra matematik kunne være produktet af to tal (altså gange dem sammen).
+
+#+begin_src python -n :exports both :results output :eval never-export
+def produkt_af_to_tal(tal_1, tal_2):
+    resultat = tal_1 * tal_2
+    return resultat
+
+produkt_af_to_tal(3, 4)
+#print(produkt_af_to_tal(3, 4))
+#svar = produkt_af_to_tal(3, 4)
+#print(svar)
+#+end_src
+
+Hvis denne kode køres, sker der ikke noget. Resultatet beregnes rigtig nok, men det bliver bare smidt væk. Vi skal altså *fange* outputtet på en eller anden måde. Vi kan printe resultatet direkte, eller vi kan *gemme* outputtet i en variabel, f.eks. ~svar~, og så printe denne efterfølgende.
+
+
+** Rumfang af en cylinder
+
+Her er et eksempel, hvor returværdien fanges og bruges til at blive printet ud.
+#+begin_src python -n :exports both :results output :eval never-export
+from math import pi
+def rumfang_cylinder(radius, hoejde):
+    rumfang = pi * radius **2 * hoejde
+    return rumfang
+
+r = 2
+h = 5
+vol = rumfang_cylinder(r, h)
+print(f"Rumfanget af en cylinder med en radius på {r} og højde på {h} er lig {vol:0.3f} m3.")
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Rumfanget af en cylinder med en radius på 2 og højde på 5 er lig 62.832 m3
+#+end_example
+
+Umiddelbart indtil videre er der ikke den store forskel på, om en funktion printer en værdi direkte til terminalen, eller funktionen returer værdien, og så printer man den efterfølgende. I det lange løb er der dog stor forskel på det. Fremadrettet kan det anbefales at anvende returværdier, og så printe dem senere.
+
+
+Eksempel på forskellen mellem at printe direkte og så fange en returværdi og printe den efterfølgende.
+
+#+begin_src python -n :exports both :results output :eval never-export
+# Denne funktion udskriver resultatet direkte
+def produkt_udskriv(tal_1, tal_2):
+    resultat = tal_1 * tal_2
+    print(resultat)
+
+# Denne funktion returnerer resultatet
+def produkt_retur(tal_1, tal_2):
+    resultat = tal_1 * tal_2
+    return resultat
+
+# Denne kodestump udskriver produktet mellem 3 og 4
+produkt_udskriv(3, 4)
+
+# Denne kodestump udskriver ikke noget. Resultatet bliver ikke fanget
+produkt_retur(3, 4)
+
+# Nu sker der noget mærkeligt.
+# Denne kodestump sætter IKKE resultatet til produktet.
+# produkt_udskriv returnerer NONE
+resultat = produkt_udskriv(3, 4)
+print("resultat = ", resultat)
+
+# Denne kodestump gør til gengæld det, vi regner med
+produktet = produkt_retur(3, 4)
+print("Produktet = ", produktet)
+#+end_src
+
+
+* Variable uden for og inden i funktioner
+Her kommer der nogle meget simple eksempler på funktioner og variable.
+
+#+begin_src python :exports both :results output :eval never-export
+def f():
+    x = 42
+
+f()
+
+print(x)
+#+end_src
+
+
+Dette eksempel fejler, da ~x~ kun eksisterer inden i funktionen ~f()~.
+
+Nu ser vi, hvad der sker, hvis ~x~ defineres uden for funktionen først.
+
+#+begin_src python :exports both :results output :eval never-export
+x = 0
+
+def f():
+    x = 42
+
+f()
+print(x)
+#+end_src
+
+Nu kan det ses, at programmet kører, men at funktionen ikke gør, som vi måske forventer. ~x~ bliver ved med at være nul.
+
+*Don't do this at home!!*
+Man kan komme omkring dette med at anvende ~globale~ variable.
+
+#+begin_src python :exports both :results output :eval never-export
+x = 0
+def f():
+    global x 
+    x = 42
+
+f()
+print(x)
+#+end_src
+
+Dette virker, men *DON'T DO IT. JUST DON'T!!!!*
+
+
+Funktioner kan godt læse variable, hvis de er skabt inden selve funktionen, og hvis funktionen /ikke ændre på den/. Det følgende eksempel virker.
+#+begin_src python :exports both :results output :eval never-export
+x = 27
+
+def f():
+    print(x)
+
+f()
+#+end_src
+
+Men dette eksempel virker /ikke/, da ~x~ /ændres/ inden i funktionen.
+
+#+begin_src python :exports both :results output :eval never-export
+x = 27
+
+def f():
+    x = x + 1
+    print(x)
+
+f()
+#+end_src
+
+
+* Argumentet er en kopi
+
+Når man kalder en funktion og anvender en variabel som argument, er værdien en /kopi/ af variablens værdi. Dette kan ses i det følgende eksempel
+
+#+begin_src python :exports both :results output :eval never-export
+# En simpel funktion som lægger én til argumentet og printer svaret.
+def f(x):
+    x +=1 # Lægger én til argumentet
+    print(f"Printer i funktionen: {x}")
+
+# Sætter en variabel
+y = 1337
+# Printer oprindeligt y
+print(f"Oprindeligt y = {y}")
+# Kalder funktionen
+f(y)
+# Printer y igen, for at se, om den har ændret sig
+print(f"Printer y igen: {y}")
+#+end_src
+
+
+Her er det simpelt at se, at variable inden i en funktion kun er gældende inden for selve funktionen. Det er sværere at se i det følgende eksempel, hvor parametre til funktionen hedder det samme som argumenterne.
+
+
+#+begin_src python :exports both :results output :eval never-export
+def f(x):
+    x += 1
+    print(x)
+
+x = 1337
+
+f(x)
+
+print(x)
+#+end_src
+
+
+* Tjek af forståelse
+I de følgende eksempler skal I /forudsige/, om det bliver printet til terminalen, og hvad der eventuelt printes. Kør efterfølgende koden og tjek, om I havde ret.
+
+** Eksempel 1
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 1
+def a():
+    print("A")
+
+def b():
+    print("B")
+
+def c():
+    print("C")
+
+a()
+#+end_src
+
+** Eksempel 2
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 2
+def a():
+    b()
+    print("A")
+
+def b():
+    c()
+    print("B")
+
+def c():
+    print("C")
+
+a()
+#+end_src
+
+
+** Eksempel 3
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 3
+def a():
+    print("A")
+    b()
+
+def b():
+    print("B")
+    c()
+
+def c():
+    print("C")
+
+a()
+#+end_src
+
+** Eksempel 4
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 4
+def a():
+    print("A starter")
+    b()
+    print("A slutter")
+
+def b():
+    print("B starter")
+    c()
+    print("B slutter")
+
+def c():
+    print("C starter og slutter")
+
+a()
+#+end_src
+
+** Eksempel 5
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 5
+def a(x):
+    print("A starter, x=", x)
+    b()
+    print("A slutter, x=", x)
+
+def b(x):
+    print("B starter, x =", x)
+    c(x + 1)
+    print("B slutter, x =", x)
+
+
+def c(x):
+    print("C starter og slutter , x =", x)
+
+
+a(5)
+#+end_src
+
+** Eksempel 6
+#+begin_src python -n :exports both :results output :eval never-export
+# Eksempel 6
+def a(x):
+    x = x + 1
+
+
+x = 3
+a(x)
+
+print(x)
+#+end_src
+
+** Eksempel 7
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 7
+def a(x):
+    x = x + 1
+    return x
+
+
+x = 3
+a(x)
+
+print(x)
+#+end_src
+
+** Eksempel 8
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 8
+def a(x):
+    x = x + 1
+    return x
+
+
+x = 3
+x = a(x)
+
+print(x)
+#+end_src
+
+** Eksempel 9
+Nu er der pludselig flere parametre.
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 9
+def a(x, y):
+    x = x + 1
+    y = y + 1
+    print(x, y)
+
+
+x = 10
+y = 20
+a(y, x)
+#+end_src
+
+** Eksempel 10
+I det følgende eksempel forsøger vi at returnere *to* værdier fra funktionen. En funktion i ~python~ stopper dog, når den enten løber hele funktionen igennem, *eller* møder ~return~ første gang. ~return y~ bliver derfor aldrig kaldt.
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 11
+def a(x, y):
+    x = x + 1
+    y = y + 1
+    return x
+    return y
+
+
+x = 10
+y = 20
+z = a(x, y)
+
+print(z)
+#+end_src
+
+** Eksempel 11
+~python~ kan returnere flere værdier på en gang vha en ~tuple~. Det er slet ikke alle programmeringssprog som er i stand til dette.
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 11
+def a(x, y):
+    x = x + 1
+    y = y + 1
+    return x, y
+
+
+x = 10
+y = 20
+z = a(x, y)
+
+print(z)
+#+end_src
+
+** Eksempel 12
+Hvis man vil fange flere returværdier fra en funktion i ~python~ kan man gøre følgende:
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 12
+def a(x, y):
+    x = x + 1
+    y = y + 1
+    return x, y
+
+
+x = 10
+y = 20
+x2, y2 = a(x, y) # Langt fra alle programmeringssprog kan dette
+
+print(x2)
+print(y2)
+#+end_src
+
+** Eksempel 13
+Her ses forskellen på variable uden for og inden i en funktion.
+#+begin_src python :exports both :results output :eval never-export
+def a(min_data):
+    print("funktion a, min_data =  ", min_data)
+    min_data = 20
+    print("funktion a, min_data =  ", min_data)
+
+
+min_data = 10
+
+print("Uden for funktionen, min_data =", min_data)
+a(min_data)
+print("Uden for funktionen, min_data =", min_data)
+#+end_src
+
+** Eksempel 14
+Her er et eksempel på brugen af ~lister~ som parametre/argumenter. Vi skal nok vende tilbage til, hvad ~lister~ er for nogen i ~python~.
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksempel 14
+def a(min_liste):
+    print("funktion a, liste =  ", min_liste)
+    min_liste = [10, 20, 30]
+    print("funktion a, liste =  ", min_liste)
+
+
+min_liste = [5, 2, 4]
+
+print("Uden for funktionen, liste =", min_liste)
+a(min_liste)
+print("Uden for funktionen , liste =", min_liste)
+#+end_src
+
+I dette eksempel ser det ud til, at der ikke sker noget med ~min_liste~ uden for funktionen.
+** Eksempel 15
+Men i dette eksempel ændres der på første element i listen. Se, hvad der så sker.
+
+#+begin_src python :exports both :results output :eval never-export
+# Eksemep 15
+def a(min_liste):
+    print("funktion a, liste =  ", min_liste)
+    min_liste[0] = 1000 # Her ændres første element til 1000
+    print("funktion a, liste =  ", min_liste)
+
+
+min_liste = [5, 2, 4]
+
+print("Uden for funktionen, liste =", min_liste)
+a(min_liste)
+print("Uden for funktionen, liste =", min_liste)
+#+end_src
+
+Nu ser det pludseligt ud til, at der faktisk sker noget med listen uden for funktionen alligevel. Dette vender vi tilbage til senere!
