@@ -1,0 +1,584 @@
+#+title: Tegn med funktioner
+#+subtitle: Programmering B
+#+options: toc:nil timestamp:nil ^:{}
+
+* Indledning
+Tidligere, i noten [[../02_Tegn_med_arcade/02_Tegn_med_arcade.org][02_Tegn_med_arcade]], så I, hvordan man kan tegne med ~arcade~, og I har sågar også tegnet jeres egne billeder. I noterne [[../03_Variable/03_Variable.org][03_Variable]] og [[../04_Funktioner/04_Funktioner.org][04_Funktioner]] blev I præsenteret for variable og kunsten af oprette og kalde sine egne ~funktioner~.
+
+I denne note skal vi arbejde med at kombinere den førnævnte viden til at tegne objekter i ~arcade~ vha. funktioner og funktionskald. Vi skal altså lave /abstraktioner/, så koden bliver nemmere at overskue og genbruge, samt at det kun er den nødvendige information, som gives videre til brugeren.
+
+
+For at vise dette arbejde tages der udgangspunkt i følgende kode, som tegner et billede af en sol, nogle skyer en regnbue samt et grønt græsareal med en himmelblå baggrund.
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+
+# Baggrundsfarve
+arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+arcade.start_render()
+
+# Græs
+arcade.draw_lrtb_rectangle_filled(0, 799, 200, 0, arcade.csscolor.LAWNGREEN)
+
+# Sol
+arcade.draw_circle_filled(200, 450, 50, arcade.csscolor.YELLOW)
+arcade.draw_line(200, 450 + 50 + 20, 200, 450 + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200, 450 - 50 - 20, 200, 450 - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 + 50 + 20, 450, 200 + 50 + 20 + 50, 450, arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 - 50 - 20, 450, 200 - 50 - 20 - 50, 450, arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+# Regnbue
+arcade.draw_arc_outline(500,300,100,100, arcade.csscolor.VIOLET, 0, 180,10)
+arcade.draw_arc_outline(500,300,110,110, arcade.csscolor.INDIGO, 0, 180,10)
+arcade.draw_arc_outline(500,300,120,120, arcade.csscolor.BLUE, 0, 180,10)
+arcade.draw_arc_outline(500,300,130,130, arcade.csscolor.GREEN, 0, 180,10)
+arcade.draw_arc_outline(500,300,140,140, arcade.csscolor.YELLOW, 0, 180,10)
+arcade.draw_arc_outline(500,300,150,150, arcade.csscolor.ORANGE, 0, 180,10)
+arcade.draw_arc_outline(500,300,160,160, arcade.csscolor.RED, 0, 180,10)
+
+
+# Skyer
+arcade.draw_ellipse_filled(300, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+arcade.draw_ellipse_filled(380, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+
+arcade.draw_ellipse_filled(600, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+arcade.draw_ellipse_filled(680, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+arcade.finish_render()
+
+arcade.run()
+#+end_src
+
+Koden giver følgende billede:
+
+[[./img/Regnbue_orig.png]]
+
+* En main-funktion
+Den første funktion, som er en god idé at oprette er en ~main~-funktion. Den er meget simpelt at oprette. Stort se al koden flyttes bare ind i en ~main~-funktion, og så skal man blot huske at kalde denne funktion til sidst.
+
+#+begin_src python :exports both :results none :eval never-export
+# Omskrivning til anvendelse af en main-funktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    arcade.start_render()
+
+    # Græs
+    arcade.draw_lrtb_rectangle_filled(0, 799, 200, 0, arcade.csscolor.LAWNGREEN)
+
+    # Sol
+    arcade.draw_circle_filled(200, 450, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(200, 450 + 50 + 20, 200, 450 + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200, 450 - 50 - 20, 200, 450 - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + 50 + 20, 450, 200 + 50 + 20 + 50, 450, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - 50 - 20, 450, 200 - 50 - 20 - 50, 450, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+    # Regnbue
+    arcade.draw_arc_outline(500,300,100,100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(500,300,110,110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(500,300,120,120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,130,130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(500,300,140,140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(500,300,150,150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,160,160, arcade.csscolor.RED, 0, 180,10)
+
+
+    # Skyer
+    arcade.draw_ellipse_filled(300, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(380, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+
+    arcade.draw_ellipse_filled(600, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(680, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.finish_render()
+
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+Sørg for at I selv kan køre koden. Sørg for at indrykninger mv. er korrekte.
+
+* Tegn de forskellige dele vha. funktioner
+
+Som det næste abstraktionslag skal vi i gang med lave funktioner til at tegne de forskellige dele. Med denne notes eksempel vil det være meget passende at lave funktioner til at tegne hhv. *græsset*, *solen*, *skyerne* og *regnbuen*. Lad os begynde med det nemmeste, altså græsset.
+
+** Græsfunktionen
+I dette eksempel skal græsset bare fylde hele bredden af skærmen og dække den nederste tredjedel af skærmen. Læg mærke til, hvordan ~tegn_graes~ defineres inden ~main~ defineres.
+
+#+begin_src python :exports both :results none :eval never-export
+# Omskrivning til anvendelse af en graes-funktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    arcade.draw_circle_filled(200, 450, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(200, 450 + 50 + 20, 200, 450 + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200, 450 - 50 - 20, 200, 450 - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + 50 + 20, 450, 200 + 50 + 20 + 50, 450, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - 50 - 20, 450, 200 - 50 - 20 - 50, 450, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 + cos(pi/4)*(50 + 20), 450 -sin(pi/4)*(50 + 20), 200 + cos(pi/4)*(50 + 20 + 15), 450 - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(200 - cos(pi/4)*(50 + 20), 450 +sin(pi/4)*(50 + 20), 200 - cos(pi/4)*(50 + 20 + 15), 450 + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+    # Regnbue
+    arcade.draw_arc_outline(500,300,100,100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(500,300,110,110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(500,300,120,120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,130,130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(500,300,140,140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(500,300,150,150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,160,160, arcade.csscolor.RED, 0, 180,10)
+
+
+    # Skyer
+    arcade.draw_ellipse_filled(300, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(380, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+
+    arcade.draw_ellipse_filled(600, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(680, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.finish_render()
+
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+Tjek at koden stadig virker.
+
+** Solfunktionen
+Nu kan vi skrive os en funktion, som kan tegne solen. Lad os yderligere gøre det sådan, at vi selv kan vælge centrumskoordinaterne til solen.
+
+#+begin_src python :exports both :results none :eval never-export
+# Omskrivning til anvendelse af en solfunktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+
+def tegn_sol(x, y):
+    arcade.draw_circle_filled(x, y, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(x, y + 50 + 20, x, y + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x, y - 50 - 20, x, y - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + 50 + 20, y, x + 50 + 20 + 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - 50 - 20, y, x - 50 - 20 - 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    tegn_sol(200, 450)
+
+    # Regnbue
+    arcade.draw_arc_outline(500,300,100,100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(500,300,110,110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(500,300,120,120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,130,130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(500,300,140,140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(500,300,150,150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(500,300,160,160, arcade.csscolor.RED, 0, 180,10)
+
+
+    # Skyer
+    arcade.draw_ellipse_filled(300, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(380, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+
+    arcade.draw_ellipse_filled(600, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(680, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.finish_render()
+
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+Nu kan vi flytte rundt på solen ved at kalde funktionen med forskellige argumenter for x og y.
+
+** Regnbuefunktionen
+Nu er turen kommet til regnbuen. Vi skal sørge for at koordinaterne til regnbuen ligger i midten i bunden af regnbuen.
+
+#+begin_src python :exports both :results none :eval never-export
+# Omskrivning til anvendelse af en regnbuefunktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+
+def tegn_sol(x, y):
+    arcade.draw_circle_filled(x, y, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(x, y + 50 + 20, x, y + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x, y - 50 - 20, x, y - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + 50 + 20, y, x + 50 + 20 + 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - 50 - 20, y, x - 50 - 20 - 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+def tegn_regnbue(x, y):
+    arcade.draw_arc_outline(x, y, 100, 100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 110, 110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 120, 120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 130, 130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 140, 140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 150, 150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 160, 160, arcade.csscolor.RED, 0, 180,10)
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    tegn_sol(200, 450)
+
+    # Regnbue
+    tegn_regnbue(500, 300)
+
+    # Skyer
+    arcade.draw_ellipse_filled(300, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(380, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+
+    arcade.draw_ellipse_filled(600, 300, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(680, 300, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.finish_render()
+
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+** Skyfunktionen
+Endelig kan vi definere en funktion, som tegner skyerne. Her er det endelige mål, at koordinaterne til skyerne ligger i centrum. Der er tegnet en ektra rød prik til sidst, for at kunne finde centrum.
+
+
+#+begin_src python :exports both :results none :eval never-export
+# Omskrivning til anvendelse af en skybuefunktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+
+def tegn_sol(x, y):
+    arcade.draw_circle_filled(x, y, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(x, y + 50 + 20, x, y + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x, y - 50 - 20, x, y - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + 50 + 20, y, x + 50 + 20 + 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - 50 - 20, y, x - 50 - 20 - 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+def tegn_regnbue(x, y):
+    arcade.draw_arc_outline(x, y, 100, 100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 110, 110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 120, 120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 130, 130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 140, 140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 150, 150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 160, 160, arcade.csscolor.RED, 0, 180,10)
+
+def tegn_sky(x, y):
+    arcade.draw_ellipse_filled(x - 40, y, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(x + 40, y, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_circle_filled(x, y, 2, arcade.csscolor.RED)
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    tegn_sol(200, 450)
+
+    # Regnbue
+    tegn_regnbue(500, 300)
+
+    # Skyer
+    tegn_sky(340, 300)
+    tegn_sky(640, 300)
+
+    arcade.finish_render()
+
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+Nu er vi i stand til at tegne mange forskellige kopier af de samme elementer. Prøv prøv en gang selv at gøre det!
+
+* Animation af tegningerne
+
+For at kunne animere vores tegning skal vi først have oprettet en ~on_draw~-funktion (Den kan også hedde noget andet).
+
+
+#+begin_src python :exports both :results none :eval never-export
+# Oprettelse af on_draw-funktion
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+
+def tegn_sol(x, y):
+    """ Tegn en sol """
+    arcade.draw_circle_filled(x, y, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(x, y + 50 + 20, x, y + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x, y - 50 - 20, x, y - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + 50 + 20, y, x + 50 + 20 + 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - 50 - 20, y, x - 50 - 20 - 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+def tegn_regnbue(x, y):
+    """ Tegn en regnbue """
+    arcade.draw_arc_outline(x, y, 100, 100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 110, 110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 120, 120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 130, 130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 140, 140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 150, 150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 160, 160, arcade.csscolor.RED, 0, 180,10)
+
+def tegn_sky(x, y):
+    """ Tegn en regnbue """
+    arcade.draw_ellipse_filled(x - 40, y, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(x + 40, y, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_circle_filled(x, y, 2, arcade.csscolor.RED)
+
+def on_draw(delta_tid):
+    """ Tegn det hele på figuren """
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    tegn_sol(200, 450)
+
+    # Regnbue
+    tegn_regnbue(500, 300)
+
+    # Skyer
+    tegn_sky(340, 300)
+    tegn_sky(640, 300)
+    
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    # Billedet opdateres 60 gange i sekundet.
+    arcade.schedule(on_draw, 1/60)
+
+    # Læg mærke til at arcade.finish_render() ikke længere er med.
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+I kan nok ikke se forskel fra den tidligere version, så tegningen bliver bare tegnet oven i sig selv 60 gange i sekundet. Sørg dog for at koden virker hos jer.
+
+** Animation af en ektra sky
+Som det sidste i denne præsentation kan vi lade en ekstra sky flyve hen over himlen, så der kommer en animation.
+
+#+begin_src python :exports both :results none :eval never-export
+# Animation af en ekstra sky
+import arcade
+from math import cos, sin, pi
+
+SKAERMBREDDE = 800
+SKAERMHOEJDE = 600
+
+def tegn_graes():
+    """ Tegn graesset hen over skaermen. """
+    arcade.draw_lrtb_rectangle_filled(0, SKAERMBREDDE, SKAERMHOEJDE/3, 0, arcade.csscolor.LAWNGREEN)
+
+def tegn_sol(x, y):
+    """ Tegn en sol """
+    arcade.draw_circle_filled(x, y, 50, arcade.csscolor.YELLOW)
+    arcade.draw_line(x, y + 50 + 20, x, y + 50 + 20 + 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x, y - 50 - 20, x, y - 50 - 20 - 50, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + 50 + 20, y, x + 50 + 20 + 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - 50 - 20, y, x - 50 - 20 - 50, y, arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x + cos(pi/4)*(50 + 20), y -sin(pi/4)*(50 + 20), x + cos(pi/4)*(50 + 20 + 15), y - sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+    arcade.draw_line(x - cos(pi/4)*(50 + 20), y +sin(pi/4)*(50 + 20), x - cos(pi/4)*(50 + 20 + 15), y + sin(pi/4)*(50 + 20 + 15), arcade.csscolor.YELLOW, 4)
+
+def tegn_regnbue(x, y):
+    """ Tegn en regnbue """
+    arcade.draw_arc_outline(x, y, 100, 100, arcade.csscolor.VIOLET, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 110, 110, arcade.csscolor.INDIGO, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 120, 120, arcade.csscolor.BLUE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 130, 130, arcade.csscolor.GREEN, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 140, 140, arcade.csscolor.YELLOW, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 150, 150, arcade.csscolor.ORANGE, 0, 180,10)
+    arcade.draw_arc_outline(x, y, 160, 160, arcade.csscolor.RED, 0, 180,10)
+
+def tegn_sky(x, y):
+    """ Tegn en regnbue """
+    arcade.draw_ellipse_filled(x - 40, y, 150, 100, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_ellipse_filled(x + 40, y, 150, 120, arcade.csscolor.LIGHT_GRAY)
+    arcade.draw_circle_filled(x, y, 2, arcade.csscolor.RED)
+
+def on_draw(delta_tid):
+    """ Tegn det hele på figuren """
+    arcade.start_render()
+
+    # Græs
+    tegn_graes()
+    # Sol
+    tegn_sol(200, 450)
+
+    # Regnbue
+    tegn_regnbue(500, 300)
+
+    # Skyer
+    tegn_sky(340, 300)
+    tegn_sky(640, 300)
+
+    # Ekstra sky, som skal animeres
+    tegn_sky(on_draw.ekstra_sky_x, 400)
+    on_draw.ekstra_sky_x += 2
+    if on_draw.ekstra_sky_x > SKAERMBREDDE + 120:
+        on_draw.ekstra_sky_x = - 120
+    
+
+def main():
+    
+    arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "Tegning af regnbue")
+
+    # Baggrundsfarve
+    arcade.set_background_color(arcade.csscolor.SKY_BLUE)
+
+    # Denne variabel er ny.
+    on_draw.ekstra_sky_x = - 120 
+    # Billedet opdateres 60 gange i sekundet.
+    arcade.schedule(on_draw, 1/60)
+
+    # Læg mærke til at arcade.finish_render() ikke længere er med.
+    arcade.run()
+
+
+# I behøver ikke tænke så meget over dette if-statement endnu. 
+if __name__ == "__main__":
+    main()
+#+end_src
+
+* Omskrivning af jeres gamle tegninger
+Med al jeres nye viden om variable og funktioner skal I omskrive jeres gamle kode, som tegnede et billede, så den kommer til at anvender funktioner. Som sædvanligt ligger der en opgave i github classroom og venter på jer. Følg linket og accepter opgaven:
+
+Arcade Opgave 3 - Tegn med funktioner: [[https://classroom.github.com/a/uem17Egi]]
+
+God arbejdslyst.
+
+[[./img/monkey_work.gif]]
