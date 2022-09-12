@@ -127,12 +127,15 @@ def udskriv_hilsen_med_standard_vaerdier(navn = "Voldemort", alder = 71):
     print("Hej med jer.")
     print(f"Mit navn er {navn}, og min alder er {alder} år.")
 
-udskriv_hilsen_med_standard_vaerdier()
-udskriv_hilsen_med_standard_vaerdier("Jacob")
+#udskriv_hilsen_med_standard_vaerdier()
+#udskriv_hilsen_med_standard_vaerdier("Jacob")
 udskriv_hilsen_med_standard_vaerdier(alder = 82, navn = "Margrethe")
 #+end_src
 
 Nu kan I se, at funktionen kan kaldes både med og uden parametre. Hvis den kaldes uden parametre, så anvendes standardværdierne.
+
+** OPGAVE
+Definér en funktion, som minimum udskriver første vers af "I dag er det ... fødselsdag." samt udskriver lige så mange hurraer, som alderen på fødselslaren. Som parametre skal der som minimum være navn og alder.
 
 ** Ukendt antal parametre/argumenter
 
@@ -173,16 +176,6 @@ def udskriv_hilsen_med_kwargs(navn_afsender, alder_afsender, **navne):
 
 udskriv_hilsen_med_kwargs("Biskop Absalon",29, foerste="Svend", anden="Knud", tredje="Valdemar")
 #+end_src
-
-#+RESULTS:
-#+begin_example
-Hej
-Svend
-Knud
-Valdemar
-Mit navn er Biskop Absalon, og min alder er 29.
-Over and out.
-#+end_example
 
 Hvis man vil kombinere både positionelle kendte parametre, ukendt antal parametre (*args) og ukendt antal navngivne parametre (**kwargs), så skal man have de positionelle først, derefter *args og til sidst **kwargs.
 
@@ -236,10 +229,6 @@ print(f"Rumfanget af en cylinder med en radius på {r} og højde på {h} er lig 
 
 #+end_src
 
-#+RESULTS:
-#+begin_example
-Rumfanget af en cylinder med en radius på 2 og højde på 5 er lig 62.832 m3
-#+end_example
 
 Umiddelbart indtil videre er der ikke den store forskel på, om en funktion printer en værdi direkte til terminalen, eller funktionen returer værdien, og så printer man den efterfølgende. I det lange løb er der dog stor forskel på det. Fremadrettet kan det anbefales at anvende returværdier, og så printe dem senere.
 
@@ -274,6 +263,9 @@ produktet = produkt_retur(3, 4)
 print("Produktet = ", produktet)
 #+end_src
 
+** OPGAVE
+1. Definér en funktion, som beregner og returnere rumfanget af en kasse.
+2. Definér en funktion, som beregner og returnere overfladearealet af en kaffe.
 
 * Variable uden for og inden i funktioner
 Her kommer der nogle meget simple eksempler på funktioner og variable.
@@ -367,6 +359,7 @@ print(f"Printer y igen: {y}")
 Her er det simpelt at se, at variable inden i en funktion kun er gældende inden for selve funktionen. Det er sværere at se i det følgende eksempel, hvor parametre til funktionen hedder det samme som argumenterne.
 
 
+*Hvad forventer I, denne kodestump udskriver?*
 #+begin_src python :exports both :results output :eval never-export
 def f(x):
     x += 1
