@@ -374,7 +374,7 @@ print(x)
 
 
 * Tjek af forståelse
-I de følgende eksempler skal I /forudsige/, om det bliver printet til terminalen, og hvad der eventuelt printes. Kør efterfølgende koden og tjek, om I havde ret.
+I de følgende eksempler skal I /forudsige/, om der bliver printet til terminalen, og hvad der eventuelt printes. Kør efterfølgende koden og tjek, om I havde ret.
 
 ** Eksempel 1
 #+begin_src python :exports both :results output :eval never-export
