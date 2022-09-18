@@ -1,0 +1,146 @@
+#+title: Betinget udførelse AKA if statements
+#+subtitle: Programmering B
+#+options: toc:nil timestamp:nil ^:{}
+
+* Indledning
+I har indtil arbejdet med =variable=, anvendt =funktioner=, skrevet jeres egne =funktioner= og I har sågar anvendt konstrolstrukturen =sekventering= (I har angivet rækkefølgen af den kørte kode). I denne præsentation skal vi se nærmere på *betinget udførelse*, som I måske kender bedre under det engelske udtryk =if statements=. Undervejs vil I også præsenteret for [[https://www.plantuml.com][plantuml]], som kan bruges til at *programmere* sine egne sekvensdiagrammer, flowdiagrammer osv. Mere om dette når tid er.
+
+
+* Betinget udførelse aka If statements
+If statements anvendes, når man skal have programmer til at eksekvere forskellig kode afhængigt af betingelse. Man kan altså få programmet til at tage beslutninger og køre forskellige kode på baggrund af denne beslutning. I kender måske [[https://www.erdetfredag.dk]]. Her foretages der et simpelt tjek, om dagen i dag er fredag eller ej.
+
+#+attr_org: :width 1000
+[[./img/erdetfredag.png]]
+
+Her er et hurtigt eksempel på en måde at implementere det på i =python=.
+
+#+begin_src python :exports both :results output :eval never-export
+from datetime import datetime as dt
+
+
+ugedagsnummer = dt.today().weekday() # Mandag = 0, Søndag = 6
+# Test
+# ugedagsnummer = 4
+print("Er det fredag?")
+if ugedagsnummer == 4:
+    print("Ja :)")
+else:
+    print("Nej :(")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Er det fredag?
+Nej :(
+#+end_example
+
+** Simpel sammenligning
+If statements kan bruges til simpel sammenligning af f.eks. talstørrelser
+
+#+begin_src python :exports both :results output :eval never-export
+a = 4
+b = 5
+
+# Simpel sammenligning
+if a < b:
+    print("a er mindre end b")
+if a > b:
+    print("a er større end b")
+
+print("Programmet er slut.")
+#+end_src
+
+*** Opgave
+- Kopiér koden ind i jeres favoriteditor/IDE.
+- Afprøv andre værdier for =a= og =b=.
+- Fungerer det som forventet?
+- Hvad sker der, hvis både =a= og =b= f.eks. er lig 42?
+
+  
+** Flowcharts
+Når man skal udvikle og/eller præsentere kode, anvender man ofte *flowcharts* til at illustrere, hvornår forskellig kode skal eksekveres. I kan se et eksempel nedenfor
+
+#+attr_org: :width 500
+[[./img/simpelt_flowchart_eksempel.png]]
+
+Kilde: [[https://creately.com/diagram/example/j20af6gl1/basic-flowchart-template-with-one-decision]]
+
+Som I kan se, anvendes der her tre forskellige blokke, som hver har deres særlige betydning. De mest almindelige symboler og deres anvendelse kan I se nedenfor, taget direkte fra wikipedia.
+
+#+attr_org: :width 800
+[[./img/flowchart_simple_symboler.png]]
+
+Kilde: [[https://en.wikipedia.org/wiki/Flowchart#Common_symbols]]
+
+Der findes et hav af onlineværktøjer til at tegne flowcharts i. Mange af dem skal man dog betale penge for at anvende. Hos [[https://www.yedworks.com][yedworks]] kan man finde både en desktop og en online-version af deres =yEd=-editor til at tegne diagrammer med.
+*Jeg vil dog anbefale at anvende plantuml i stedet for, da man her kan kode sine diagrammer.*
+
+** Plantuml
+[[https://plantuml.com][plantumls]] hjemmeside ser godt nok meget bedaget ud, men den gør arbejdet godt. Det, der er relevant for flowcharts, ligger under [[https://plantuml.com/activity-diagram-beta][Activity Diagram]].
+
+Til at skabe et flowdiagram, som beskriver koden under [[Simpel sammenligning]], kan man "bare" skrive følgende:
+
+#+begin_src plantuml :file img/simpel_sammenligning_flowchart.png
+@startuml
+:Start;
+:a = 5]
+:b = 4]
+if (a < b) then (Sandt)
+:print "a er mindre end b"/
+else (Falsk)
+endif
+if (a > b) then (Sandt)
+:print "a er større end b"/
+else (Falsk)
+endif
+:Stop;
+@enduml
+#+end_src
+
+#+attr_org: :width 300
+#+RESULTS:
+[[file:img/simpel_sammenligning_flowchart.png]]
+
+Denne kode kan I indsætte i [[http://www.plantuml.com/plantuml/uml/]], hvor I kan teste det af. Se mange flere eksempler på [[https://plantuml.com/activity-diagram-beta][Activity Diagram]]. Man kan også ændre temaer [[https://plantuml.com/theme]].
+
+Plantuml kan sågar også bruges til at tegne =mindmaps= [[https://plantuml.com/mindmap-diagram]], og understøtter både org mode- og markdownsyntaks.
+
+#+begin_src plantuml :file img/mindmapeksempel.png
+@startmindmap
++ OS
+++ GNU/Linux
++++ Debian
+++++ Ubuntu
++++ openSUSE
+++++ Leap
+++++ Tumbleweed
+++ BSD
++++ FreeBSD
++++ OpenBSD
++++ NetBSD
++++ Darwin
+-- DOS
+--- Windows 1.0
+---- Windows 2.0
+----- Windows 3.x
+--- Windows 95
+--- Windows 98
+--- Windows Me
+-- Windows NT
+--- Windows 2000
+---- Windows XP
+----- Windows Vista
+------ Windows 7
+------- Windows 8
+-------- Windows 10
+--------- Windows 11
+-- OS/2
+@endmindmap
+#+end_src
+
+#+attr_org: :width 800 
+#+RESULTS:
+[[file:img/mindmapeksempel.png]]
+
+** Flere (matematiske) sammenligningstyper
+Ud over større end og mindre end, så er der også følgende sammenligninger fra matematikken: *større end eller lig med*, *mindre end eller lig med*,  *lig med* og *ikke lig med*.

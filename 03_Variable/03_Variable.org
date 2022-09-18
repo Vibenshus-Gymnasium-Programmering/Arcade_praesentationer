@@ -24,15 +24,20 @@ For x=1 kan vi f.eks. skrive følgende for at beregne f(1)
 print(2*1**2 -3*1-4)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+-5
+#+end_example
+
 Hvis vi så skal gøre det samme for de andre x-værdier, skal vi ændre 1-tallet alle steder i udtrykket.
 
 #+begin_src python :exports both :results output :eval never-export
-print(2*1**2 -3*1-4)
+print(2*5**2 -3*5-4)
 #+end_src
 
 #+RESULTS:
 #+begin_example
--2
+31
 #+end_example
 
 Det bliver hurtigt kedeligt i længden!
@@ -40,10 +45,15 @@ Det bliver hurtigt kedeligt i længden!
 I stedet kan vi *deklarere* en =variabel=, så vi kun skal ændre værdien *ét* sted.
 
 #+begin_src python :exports both :results output :eval never-export
-x = 1
+x = 42
 
 print(2*x**2 -3*x-4)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+3398
+#+end_example
 
 *Prøv selv at se, hvad der er hurtigst for jer, hvis I skal bruge koden til at beregne de fem funktionsværdier. Kodestumperne kan nemt kopieres fra denne præsentation, hvis den vises vha github.*
 
@@ -105,7 +115,6 @@ fart_i_km_i_timen = 5.39 / (26 / 60)
 print(fart_i_km_i_timen)
 #+end_src
 
-
 * Udtryk (expressions)
 
 ** Operatorer
@@ -128,6 +137,8 @@ z = 2*(3*x + y)
 print(x, y, z)
 #+end_src
 
+#+RESULTS:
+
 Hvis man fjerner f.eks. gangetegnet, så virker det ikke.
 
 ** Lighedstegnet (assigment operatoren)
@@ -143,6 +154,7 @@ Men dette gør ikke.
 3 + 4 = x
 print(x)
 #+end_src
+
 
 Udtrykket på højre side af lighedstegnet beregnes og symbolet på venstre side sættes lig denne værdi.
 
@@ -172,6 +184,13 @@ x = x + 1
 print(x+1)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+4
+4
+5
+#+end_example
+
 ** Forøg og formindsk
 Der er mange måder, hvorpå man kan forøge og formindske værdien af en variabel.
 
@@ -192,6 +211,15 @@ print(x)
 x = x / 5
 print(x) 
 #+end_src
+
+#+RESULTS:
+#+begin_example
+3
+4
+2
+20
+4.0
+#+end_example
 
 I ~python~ er der specielle genveje til disse ændringer
 
@@ -226,21 +254,36 @@ x /= 5
 print(x)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+3
+4
+2
+20
+4.0
+#+end_example
+
 *** Obs
 #+begin_src python :exports both :results output :eval never-export
+x = 3
 x = x + 1
+print(x)
 #+end_src
 
 og
 
 #+begin_src python :exports both :results output :eval never-export
+x = 27
 x += 1
+print(x)
 #+end_src
 
 gør det samme. Men hvad gør følgende?:
 
 #+begin_src python :exports both :results output :eval never-export
+x = 3
 x += x + 1
+print(x)
 #+end_src
 
 ** Anvendelse af udtryk til funktionskald
@@ -270,8 +313,8 @@ Dette kan gøres bedre vha variabler/KONSTANTER
 
 #+begin_src python :exports both :results none :eval never-export
 import arcade
-SKAERMBREDDE = 800
-SKAERMHOEJDE = 600
+SKAERMBREDDE = 1200
+SKAERMHOEJDE = 400
 
 arcade.open_window(SKAERMBREDDE, SKAERMHOEJDE, "En cirkel i midten")
 
@@ -299,12 +342,22 @@ navn = "Jacob"
 print("Mit navn er", navn)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+Mit navn er Jacob
+#+end_example
+
 Hvad nu, hvis vi vil have et punktum med?
 
 #+begin_src python :exports both :results output :eval never-export
 navn = "Jacob"
 print("Mit navn er", navn, ".")
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Mit navn er Jacob .
+#+end_example
 
 
 Det ser ikke helt rigtig nu. Lad os prøve noget andet.
@@ -314,6 +367,11 @@ navn = "Jacob"
 print("Mit navn er"+ navn+ ".")
 #+end_src
 
+#+RESULTS:
+#+begin_example
+Mit navn erJacob.
+#+end_example
+
 
 Næsten. Der mangler lige et mellemrum.
 
@@ -322,19 +380,31 @@ navn = "Jacob"
 print("Mit navn er "+ navn+ ".")
 #+end_src
 
+#+RESULTS:
+#+begin_example
+Mit navn er Jacob.
+#+end_example
+
 
 
 #+begin_src python :exports both :results output :eval never-export
-navn = 11
-print("Mit navn er "+ navn+ ".")
+alder = 38 
+print("Min alder er "+ alder+ ".")
 #+end_src
+
+#+RESULTS:
 
 Hmm, det kan løses ved at =konvertere= heltallet 11 til en tekststring
 
 #+begin_src python :exports both :results output :eval never-export
-navn = 11
-print("Mit navn er "+ str(navn)+ ".")
+alder = 38
+print("Min alder er "+ str(alder)+ ".")
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Min alder er 38.
+#+end_example
 
 Der findes nemmere måder at gøre dette på i python.
 
@@ -346,6 +416,11 @@ alder = 11
 print("Mit navn er {0}. Min alder er {1}.".format(navn, alder))
 #+end_src
 
+#+RESULTS:
+#+begin_example
+Mit navn er Eleven. Min alder er 11.
+#+end_example
+
 
 Men endnu bedre er det at anvende *formatterede strenge* (f-strings)
 
@@ -354,6 +429,11 @@ navn = "Eleven"
 alder = 11
 print(f"Mit navn er {navn}. Min alder er {alder}.")
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Mit navn er Eleven. Min alder er 11.
+#+end_example
 
 f-strings blev først indført i python ved version 3.6. Syntaksen er således, at der skal skrives et lille *f* foran citationstegnet og variabelnavnet i selve tekststrengen skal omgives med krøllede parenteser (curly brackets, {}).
 

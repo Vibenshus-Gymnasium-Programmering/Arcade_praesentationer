@@ -90,8 +90,9 @@ def udskriv_hilsen(navn, alder):
     print("Hej med jer.")
     print(f"Mit navn er {navn}, og min alder er {alder} år.")
 
-udskriv_hilsen("Jacob", 38)
+udskriv_hilsen("Bøllebob", 11)
 #+end_src
+
 
 Når funktionen ~udskriv_hilsen~ kaldes er "Jacob" og 38 *argumenter* til funktionen.
 
@@ -109,7 +110,8 @@ def udskriv_hilsen(navn, alder):
     print("Hej med jer.")
     print(f"Mit navn er {navn}, og min alder er {alder} år.")
 
-udskriv_hilsen(navn = "Jacob", alder = 38)
+#udskriv_hilsen("Jacob", 38)
+#udskriv_hilsen(navn = "Jacob", alder = 38)
 udskriv_hilsen(alder = 24000, navn = "Gandalf")
 #+end_src
 
@@ -204,11 +206,17 @@ def produkt_af_to_tal(tal_1, tal_2):
     resultat = tal_1 * tal_2
     return resultat
 
-produkt_af_to_tal(3, 4)
-#print(produkt_af_to_tal(3, 4))
-#svar = produkt_af_to_tal(3, 4)
-#print(svar)
+# produkt_af_to_tal(3, 4)
+# print(produkt_af_to_tal(3, 4))
+svar = produkt_af_to_tal(3, 4)
+print(svar)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+12
+36
+#+end_example
 
 Hvis denne kode køres, sker der ikke noget. Resultatet beregnes rigtig nok, men det bliver bare smidt væk. Vi skal altså *fange* outputtet på en eller anden måde. Vi kan printe resultatet direkte, eller vi kan *gemme* outputtet i en variabel, f.eks. ~svar~, og så printe denne efterfølgende.
 
@@ -228,6 +236,11 @@ vol = rumfang_cylinder(r, h)
 print(f"Rumfanget af en cylinder med en radius på {r} og højde på {h} er lig {vol:0.3f} m3.")
 
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Rumfanget af en cylinder med en radius på 2 og højde på 5 er lig 62.832 m3.
+#+end_example
 
 
 Umiddelbart indtil videre er der ikke den store forskel på, om en funktion printer en værdi direkte til terminalen, eller funktionen returer værdien, og så printer man den efterfølgende. I det lange løb er der dog stor forskel på det. Fremadrettet kan det anbefales at anvende returværdier, og så printe dem senere.
@@ -263,9 +276,41 @@ produktet = produkt_retur(3, 4)
 print("Produktet = ", produktet)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+12
+12
+resultat =  None
+Produktet =  12
+#+end_example
+
 ** OPGAVE
-1. Definér en funktion, som beregner og returnere rumfanget af en kasse.
-2. Definér en funktion, som beregner og returnere overfladearealet af en kaffe.
+1. Definér en funktion, som beregner og returnerer rumfanget af en kasse.
+2. Definér en funktion, som beregner og returnerer overfladearealet af en kasse.
+
+#+begin_src python :exports both :results output :eval never-export
+def rumfang_kasse(l, b, h):
+    rumfang = l*b*h
+    return rumfang
+
+def overfladeareal_kasse(l, b, h):
+    overfladeareal = 2*(l*b + l*h + b*h)
+    return overfladeareal
+
+# Test
+hoejde = 2
+laengde = 3
+bredde = 4
+
+volumen = rumfang_kasse(laengde, bredde, hoejde)
+areal = overfladeareal_kasse(laengde, bredde, hoejde)
+print(f"For en kasse med højde = {hoejde}, bredde = {bredde} og længde = {laengde} er rumfanget = {volumen:0.3f} og overfladearealet = {areal:0.3f}.")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+For en kasse med højde = 2, bredde = 4 og længde = 3 er rumfanget = 24.000 og overfladearealet = 52.000.
+#+end_example
 
 * Variable uden for og inden i funktioner
 Her kommer der nogle meget simple eksempler på funktioner og variable.
@@ -278,6 +323,8 @@ f()
 
 print(x)
 #+end_src
+
+#+RESULTS:
 
 
 Dette eksempel fejler, da ~x~ kun eksisterer inden i funktionen ~f()~.
@@ -293,6 +340,11 @@ def f():
 f()
 print(x)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+0
+#+end_example
 
 Nu kan det ses, at programmet kører, men at funktionen ikke gør, som vi måske forventer. ~x~ bliver ved med at være nul.
 
@@ -322,6 +374,11 @@ def f():
 f()
 #+end_src
 
+#+RESULTS:
+#+begin_example
+27
+#+end_example
+
 Men dette eksempel virker /ikke/, da ~x~ /ændres/ inden i funktionen.
 
 #+begin_src python :exports both :results output :eval never-export
@@ -333,6 +390,8 @@ def f():
 
 f()
 #+end_src
+
+#+RESULTS:
 
 
 * Argumentet er en kopi
@@ -355,6 +414,13 @@ f(y)
 print(f"Printer y igen: {y}")
 #+end_src
 
+#+RESULTS:
+#+begin_example
+Oprindeligt y = 1337
+Printer i funktionen: 1338
+Printer y igen: 1337
+#+end_example
+
 
 Her er det simpelt at se, at variable inden i en funktion kun er gældende inden for selve funktionen. Det er sværere at se i det følgende eksempel, hvor parametre til funktionen hedder det samme som argumenterne.
 
@@ -371,6 +437,12 @@ f(x)
 
 print(x)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+1338
+1337
+#+end_example
 
 
 * Tjek af forståelse
@@ -390,6 +462,11 @@ def c():
 
 a()
 #+end_src
+
+#+RESULTS:
+#+begin_example
+A
+#+end_example
 
 ** Eksempel 2
 #+begin_src python :exports both :results output :eval never-export
@@ -453,7 +530,7 @@ a()
 # Eksempel 5
 def a(x):
     print("A starter, x=", x)
-    b()
+    b(x)
     print("A slutter, x=", x)
 
 def b(x):
@@ -468,6 +545,15 @@ def c(x):
 
 a(5)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+A starter, x= 5
+B starter, x = 5
+C starter og slutter , x = 6
+B slutter, x = 5
+A slutter, x= 5
+#+end_example
 
 ** Eksempel 6
 #+begin_src python -n :exports both :results output :eval never-export
