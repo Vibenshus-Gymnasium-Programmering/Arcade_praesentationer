@@ -10,6 +10,7 @@ I har indtil arbejdet med =variable=, anvendt =funktioner=, skrevet jeres egne =
 If statements anvendes, når man skal have programmer til at eksekvere forskellig kode afhængigt af betingelse. Man kan altså få programmet til at tage beslutninger og køre forskellige kode på baggrund af denne beslutning. I kender måske [[https://www.erdetfredag.dk]]. Her foretages der et simpelt tjek, om dagen i dag er fredag eller ej.
 
 #+attr_org: :width 1000
+#+attr_html: :width 80%
 [[./img/erdetfredag.png]]
 
 Her er et hurtigt eksempel på en måde at implementere det på i =python=.
@@ -68,6 +69,7 @@ Kilde: [[https://creately.com/diagram/example/j20af6gl1/basic-flowchart-template
 Som I kan se, anvendes der her tre forskellige blokke, som hver har deres særlige betydning. De mest almindelige symboler og deres anvendelse kan I se nedenfor, taget direkte fra wikipedia.
 
 #+attr_org: :width 800
+#+attr_html: :width 80%
 [[./img/flowchart_simple_symboler.png]]
 
 Kilde: [[https://en.wikipedia.org/wiki/Flowchart#Common_symbols]]
@@ -80,7 +82,7 @@ Der findes et hav af onlineværktøjer til at tegne flowcharts i. Mange af dem s
 
 Til at skabe et flowdiagram, som beskriver koden under [[Simpel sammenligning]], kan man "bare" skrive følgende:
 
-#+begin_src plantuml :file img/simpel_sammenligning_flowchart.png
+#+begin_src plantuml :file img/simpel_sammenligning_flowchart.png :eval never-export :exports both
 @startuml
 :Start;
 :a = 5]
@@ -105,7 +107,7 @@ Denne kode kan I indsætte i [[http://www.plantuml.com/plantuml/uml/]], hvor I k
 
 Plantuml kan sågar også bruges til at tegne =mindmaps= [[https://plantuml.com/mindmap-diagram]], og understøtter både org mode- og markdownsyntaks.
 
-#+begin_src plantuml :file img/mindmapeksempel.png
+#+begin_src plantuml :file img/mindmapeksempel.png :eval never-export :exports both
 @startmindmap
 + OS
 ++ GNU/Linux
@@ -139,8 +141,326 @@ Plantuml kan sågar også bruges til at tegne =mindmaps= [[https://plantuml.com/
 #+end_src
 
 #+attr_org: :width 800 
+#+attr_html: :width 100%
 #+RESULTS:
 [[file:img/mindmapeksempel.png]]
 
 ** Flere (matematiske) sammenligningstyper
 Ud over større end og mindre end, så er der også følgende sammenligninger fra matematikken: *større end eller lig med*, *mindre end eller lig med*,  *lig med* og *ikke lig med*.
+
+Her er en række eksempler:
+
+#+begin_src python :exports both :results output :eval never-export
+a = 4
+b = 5
+if a <= b:
+    print("a er mindre eller lig med b")
+if a >= b:
+    print("a er større end eller lig med b")
+if a != b:
+    print("a er forskellig fra b")
+if a == b:
+    print("a har præcis samme værdi som b")
+#+end_src
+
+I skal være opmærksomme på at ~<=~ og ~>=~ kun kan skrives sådan. Man kan ikke bytte om på mindre end/større end-tegnet og lighedstegnet f.eks. Det samme gælder for ikke lig med.
+
+Hvad angår tjek af lig med ~==~ så skal man altid huske *2* lighedstegn, når man tjekker.
+
+*** Pas på!
+Det er meget nemt at komme til at forveksle ~=~ og ~==~, når man koder. Her er to eksempler, hvor det går galt.
+
+#+begin_src python :exports both :results output :eval never-export
+# Dette er forkert
+a == 1
+
+# Dette er også forkert
+if a = 1:
+    print("a er et")
+#+end_src
+
+
+Den første fejl bliver ikke fanget, men den anden bliver fanget i moderne versioner af python.
+
+*Hvordan skulle koden have set ud?*
+
+* Indryk
+Når en blok ifm et if statement skal eksekveres, så det være rykket ind med 4 mellemrum. Alt hvad der er rykket ind med *præcis* denne afstand hører med til blokken. Dette kan ses her:
+
+#+begin_src python :exports both :results output :eval never-export
+a = 1
+
+if a == 1:
+    print("Her starter if-blokken")
+    print("Hvis a er lig med 1, så printes denne linje.")
+    print("Det samme gør denne linje")
+    print("Denne linje kommer også med")
+    print("Her slutter if-blokken.")
+
+print("Denne linje vil altid blive printet, da den ikke er rykket ind.")
+#+end_src
+
+
+Hvis man først har rykket kode ud til venstre igen, så kan man ikke umiddelbart komme ind i if-blokken igen. Det næste eksempel virker *ikke*. Det giver en =IndentationError=.
+
+#+begin_src python :exports both :results output :eval never-export
+a = 1
+
+if a == 1:
+    print("Her starter if-blokken")
+    print("Hvis a er lig med 1, så printes denne linje.")
+    print("Det samme gør denne linje")
+print("Denne linje vil altid blive printet, da den ikke er rykket ind.")
+    print("Denne linje kommer også med")
+    print("Her slutter if-blokken.")
+#+end_src
+
+* Anvendelse af and/or (og/eller)
+If statements kan tjekke flere betingelser på én gang ved at kæde dem sammen vha de rette kombinationer af ~and~ og ~or~. Her er nogle eksempler
+
+#+begin_src python :exports both :results output :eval never-export
+a = 1
+b = 2
+c = 3
+
+# And - begge sammenligninger skal være sande for at køre koden i blokken
+if a < b and a < c:
+    print("a skal BÅDE være mindre end b og mindre end c, for at printe denne linje")
+
+# Or - bare en af sammenligningerne skal være sand for at køre koden i blokken
+if a < b or a < c:
+    print("a er enten mindre end b eller mindre end c. a kan også være mindre end både b og c")
+#+end_src
+
+** Opgave
+- Kopiér ovenstående kode ind i jeres favoriteditor/IDE til pythonprogrammering.
+- Ændr på værdierne for ~a~, ~b~ og ~c~ så:
+  - kun første if statement er sandt
+  - kun andet if statement er sandt
+  - begge if statements er sande på samme tid
+  - så ingen if statements er sande
+
+    
+* Variable med boolske værdier
+En =boolsk= variabel kan enten være *sand* eller *falsk* (~True~ eller ~False~ i =python=). *Boolsk algebra* blev opfundet af Georg Boole i 1854 og havde som sådan ikke noget med computerlogik at gøre. Der gælder en række regneregler for boolsk algebra, som kan ses i den følgende tabel
+
+| x     | y     | x and y | x or y | not x |
+|-------+-------+---------+--------+-------|
+| False | False | False   | False  | True  |
+| True  | False | False   | True   | False |
+| False | True  | False   | True   | True  |
+| True  | True  | True    | True   | False |
+
+I stedet for ~True~ og ~False~ kan man også anvende hhv 1 og 0. Tabellen er da således ud:
+
+| x | y | x and y | x or y | not x |
+|---+---+---------+--------+-------|
+| 0 | 0 |       0 |      0 |     1 |
+| 1 | 0 |       0 |      1 |     0 |
+| 0 | 1 |       0 |      1 |     1 |
+| 1 | 1 |       1 |      1 |     0 |
+
+Hvis man anvender 0 og 1 for hhv ~False~ og ~True~, så kan ~and~ skrives som *produktet* af to boolske værdier (~x*y~), mens ~or~ kan skrives som *summen* af to boolske værdier (~x+y~). Endelig kan ~not~ begragtes som at gange med -1. Dette kan ses i følgende tabel:
+
+| x | y | x * y   | x + y  | -1* x |
+|---+---+---------+--------+-------|
+| 0 | 0 |       0 |      0 |     1 |
+| 1 | 0 |       0 |      1 |     0 |
+| 0 | 1 |       0 |      1 |     1 |
+| 1 | 1 |       1 |      1 |     0 |
+
+For at køre blokken i et ~if statement~ så skal udtrykket efter ~if~ være ~True~. Hvis udtrykket er ~False~ springes blokken over.
+
+Hvis en variabel *allerede* er sat til at være ~True~ er der derfor ikke nødvendigt at foretage et tjek. F.eks. er de to følgende eksempler lige gode:
+
+#+begin_src python :exports both :results output :eval never-export
+a = True
+
+if a == True:
+    print("a er sand.")
+
+if a:
+    print("a er sand, også uden et tjek.")
+#+end_src
+
+Hvis man vil køre blokken i et ~if statement~, når der er den *modsatte* værdi for f.eks. ~a~, så kan man anvende ~not~
+
+#+begin_src python :exports both :results output :eval never-export
+a = False
+
+if not a:
+    print("a er falsk, men denne linje printes alligevel takket være not.")
+#+end_src
+
+** Opgave
+- Forudsig, hvad den følgende kode printer.
+
+#+begin_src python :exports both :results output :eval never-export
+a = True
+b = False
+
+if a and b:
+    print("1")
+if a or b:
+    print("2")
+if a and not b:
+    print("3")
+if not a and b:
+    print("4")
+if not a or b:
+    print("5")
+if a or not b:
+    print("6")
+if not a and not b:
+    print("7")
+if not a or not b:
+    print("8")
+#+end_src
+
+- Tjek jeres gæt ved at kopiere koden ind i jeres favoriteditor/IDE og kør koden.
+- Ændr nu på værdierne af ~a~ og ~b~ således, at I kan få alle ~print~ til at blive kørt enkeltvis eller flere sammen.
+
+* Andre former for sandt og falsk
+Det er også muligt at anvende if statements med andet end ~True~ og ~False~. I ~python~ betyder ~0~ ~False~ mens alle andre tal betyder ~True~. Ligeledes betyder en tom streng ("") også ~False~, men alle andre strenge betyder ~True~.
+
+#+begin_src python :exports both :results output :eval never-export
+if 1:
+    print("1")
+if "Denne streng betyder True.":
+    print("En tekststreng, som ikke er tom betyder True.")
+
+if "":
+    print("Her skal der faktisk ikke printes noget.")
+
+if not "":
+    print("Nu printes der noget, selvom strengen er tom.")
+if 3:
+    print("1")
+    print("If statement og print behøver ikke hænge sammen.")
+if 0:
+    print("Nul") # Burde ikke blive printet
+#+end_src
+
+
+* Input-funktionen - et lille intermezzo
+~input~-funktionen er jeres første introduktion til interaktion mellem computer og bruger. ~input~ kan f.eks. bruges til at bede en bruger om at indtaste noget.
+
+Her er et simpelt eksempel:
+
+#+begin_src python :exports both :results output :eval never-export
+brugernavn = input("Hvad hedder du? ")
+print(f"Hej {brugernavn}.")
+print("Jeg hedder Skynet. Om lidt har jeg overtaget hele verdenen.")
+print("MU HA HA HA!")
+#+end_src
+
+Argumentet til ~input~ er en tekststreng, som skrives ud til brugeren i terminalen. Returværdien fra ~input~ gemmes i dette tilfælde i variablen ~brugernavn~, som anvendes senere.
+
+Her er et andet eksempel, hvor der køres forskellig kode alt efter, hvad returværdien til input-funktionen er:
+
+#+begin_src python :exports both :results output :eval never-export
+temperatur_str = input("Hvad er temperaturen målt i grader celsius, der hvor du er lige nu? ")
+
+temperatur_int = int(temperatur_str)
+if temperatur_int < -273:
+    print("Så koldt kan det slet ikke være. Intet i universet kan være koldere end det absolutte nulpunkt.")
+if temperatur_int < 19:
+    print("Det er så koldt, at du faktisk gerne må skrue op for varmen på radiatoren.")
+if temperatur_int > 19:
+    print("Bare ærgerligt Sonny boy. Der er varmt nok. Ingen grund til at skrue længere op for varmen.")
+#+end_src
+
+Læg mærke til brugen af ~int(temperatur_str)~. Returværdien fra ~input~ er en ~streng~ altså tekst. For at kunne sammenligne dette med tal, så skal strengen konverteres til tal. I koden her konverteres der til ~integers~ altså heltal. Man kunne også have anvendt ~float~, så havde man fået decimaltal i stedet for.
+
+
+* else og elif
+Indtil videre har vi kun anvendt ~if~, når vi har skullet køre kode pga et valg som enten var sandt eller falskt. Hvis man vil sammenligne med mere end *én* værdi kan man bruge ~elif~ og ~else~.
+
+Her er tre eksempler på brugen af if, elif og else:
+
+#+begin_src python :exports both :results output :eval never-export
+temperatur = int(input("Hvad er temperaturen i grader celsius"))
+if temperatur > 32:
+    print("Puha, det er varmt!")
+elif temperatur < 0:
+    print("Uha, det er jo bidende koldt.")
+else:
+    print("Det er ikke varmt uden for.")
+#+end_src
+
+Her er en fejl i programmet. Der skrives ud at det er ikke varmt uden for, selvom man indtaster en temperatur på f.eks. 40 grader celsius.
+
+Vi kan forsøge at fikse dette.
+
+#+begin_src python :exports both :results output :eval never-export
+temperatur = int(input("Hvad er temperaturen i grader celsius"))
+if temperatur > 32:
+    print("Puha, det er varmt!")
+elif temperatur > 43:
+    print("Det er næsten så varmt at asfalten smelter på vejbanen.")
+elif temperatur < 0:
+    print("Uha, det er jo bidende koldt.")
+else:
+    print("Temperaturen er ok.")
+#+end_src
+
+Her er der igen et problem. Det første if statement vil blive kørt, hvis man indtaster f.eks. 45, og den vil springe de andre blokke over. For at få programmet til at køre korrekt, så de forskellige if, elif og else statements sættes op i den korrekte rækkefølge:
+
+#+begin_src python :exports both :results output :eval never-export
+temperatur = int(input("Hvad er temperaturen i grader celsius"))
+if temperatur > 43:
+    print("Det er næsten så varmt at asfalten smelter på vejbanen.")
+elif temperatur > 32:
+    print("Puha, det er varmt!")
+elif temperatur < 0:
+    print("Uha, det er jo bidende koldt.")
+else:
+    print("Temperaturen er ok.")
+#+end_src
+
+
+
+** Opgave
+Løsning af en 2.gradsligning.
+
+Skriv et lille program, som først spørger efter a-, b- og c-koefficienterne i en 2.gradsligning
+
+$$a \cdot x^2 + b \cdot x + c = 0$$
+
+Efterfølgende udregner programmet diskriminanten.
+
+$$d = b^2 -4 \cdot a \cdot c$$
+
+Hvis diskriminanten er positiv, skal programmet skrive *2* løsninger ud til brugeren.
+
+$$x_1 = \frac{-b + \sqrt{d}}{2\cdot a} \text{ og } x_2 = \frac{-b - \sqrt{d}}{2\cdot a}$$
+
+Hvis diskriminanten er præcis lig med nul, skal programmet skrive *1* løsninger ud til brugeren.
+
+$$x = \frac{-b}{2 \cdot a}$$
+
+Endelig, hvis diskriminanten er negativ, skal programmet skrive ud, at der ingen reelle løsninger er til 2.gradsligningen.
+
+* Sammenligning af tekst
+
+Python kender som hovedregel forskel på store og små bogstaver.
+
+#+begin_src python :exports both :results output :eval never-export
+brugernavn = input("Hvad er dit navn? ")
+if brugernavn == "Jacob": #Husk citationstegn omkring Jacob, ellers virker det ikke.
+    print("Sikke et vidunderligt navn du har!")
+else:
+    print("Ja, du har sørme et navn. Tillykke med det ... Eller noget.")
+#+end_src
+
+- Hvad ville der ske, hvis man bare skrev "jacob"?
+
+Man kan fikse dette, hvis man enten konverterer til storre eller små bogstaver.
+
+#+begin_src python :exports both :results output :eval never-export
+brugernavn = input("Hvad er dit navn? ")
+if brugernavn.lower() == "jacob": 
+    print("Sikke et vidunderligt navn du har!")
+else:
+    print("Ja, du har sørme et navn. Tillykke med det ... Eller noget.")
+#+end_src

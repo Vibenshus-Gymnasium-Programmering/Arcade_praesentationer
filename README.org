@@ -9,3 +9,4 @@ Indtil videre er der følgende præsentationer:
 - [[./04_Funktioner/04_Funktioner.org][04_Funktioner]]
 - [[./05_Tegn_med_funktioner/05_Tegn_med_funktioner.org][05_Tegn_med_funktioner]]
 - [[./06_Betinget_udfoerelse/06_Betinget_udfoerelse.org][06_Betinget_udfoerelse]]
+- [[./07_tilfældige_tal/07_tilfældige_tal.org][07_Tilfældige_tal]]
