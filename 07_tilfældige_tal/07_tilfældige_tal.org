@@ -143,4 +143,10 @@ main()
 #+end_src
 
 
-* 
+* Opgave
+Analysér programmet "gæt et tal" fra forrige afsnit og generér et rutediagram vha. ~plantuml~, som beskriver programmets udførelse.
+
+- Rutediagram hedder også et flowchart eller et ~activity diagram~ i ~plantuml~.
+- Find eksempler på rutediagrammer skrevet i ~plantuml~ her: [[https://plantuml.com/activity-diagram-beta]]
+- I kan skrive plantuml-koden ind her: [[https://www.plantuml.com/plantuml/uml/]], hvorefter diagrammet vil blive autogenereret for jer.
+- I kan også finde information om ~plantuml~ i [[https://github.com/Vibenshus-Gymnasium-Programmering/Arcade_praesentationer/blob/main/06_Betinget_udfoerelse/06_Betinget_udfoerelse.org][præsentationen om betinget udførelse]].
