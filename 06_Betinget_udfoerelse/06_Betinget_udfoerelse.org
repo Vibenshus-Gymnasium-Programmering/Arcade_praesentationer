@@ -29,12 +29,6 @@ else:
     print("Nej :(")
 #+end_src
 
-#+RESULTS:
-#+begin_example
-Er det fredag?
-Nej :(
-#+end_example
-
 ** Simpel sammenligning
 If statements kan bruges til simpel sammenligning af f.eks. talstørrelser
 
@@ -58,8 +52,8 @@ print("Programmet er slut.")
 - Hvad sker der, hvis både =a= og =b= f.eks. er lig 42?
 
   
-** Flowcharts
-Når man skal udvikle og/eller præsentere kode, anvender man ofte *flowcharts* til at illustrere, hvornår forskellig kode skal eksekveres. I kan se et eksempel nedenfor
+** Rutediagrammer
+Når man skal udvikle og/eller præsentere kode, anvender man ofte *rutediagrammer* (også kaldet flowcharts) til at illustrere, hvornår forskellig kode skal eksekveres. I kan se et eksempel nedenfor
 
 #+attr_org: :width 500
 [[./img/simpelt_flowchart_eksempel.png]]
@@ -144,6 +138,25 @@ Plantuml kan sågar også bruges til at tegne =mindmaps= [[https://plantuml.com/
 #+attr_html: :width 100%
 #+RESULTS:
 [[file:img/mindmapeksempel.png]]
+
+** Opgave med rutediagram
+Anvend ~plantuml~ til at tegne et rutediagram, som kan beskriver kørslen af programmet, som tester, om det er fredag. Her er kode igen:
+
+#+begin_src python :exports both :results output :eval never-export
+from datetime import datetime as dt
+
+ugedagsnummer = dt.today().weekday() # Mandag = 0, Søndag = 6
+print("Er det fredag?")
+if ugedagsnummer == 4:
+    print("Ja :)")
+else:
+    print("Nej :(")
+#+end_src
+
+- Se mit tidligere eksempel for at forstå syntaksen.
+- Se [[https://plantuml.com/activity-diagram-beta]] for en oversigt og mange eksempler af, hvordan man skriver rutediagrammer i plantuml.
+- Skriv jeres plantuml-kode ind i [[https://www.plantuml.com/plantuml/uml/]] for at få autogeneret figuren.
+- Plantuml-kode og selve figuren skal I gemme sammen et sted på jeres computer (eller endnu bedre, I skriver det ind i jeres logbog.)
 
 ** Flere (matematiske) sammenligningstyper
 Ud over større end og mindre end, så er der også følgende sammenligninger fra matematikken: *større end eller lig med*, *mindre end eller lig med*,  *lig med* og *ikke lig med*.
