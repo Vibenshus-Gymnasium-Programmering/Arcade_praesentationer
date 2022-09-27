@@ -468,7 +468,7 @@ else:
 
 - Hvad ville der ske, hvis man bare skrev "jacob"?
 
-Man kan fikse dette, hvis man enten konverterer til storre eller små bogstaver.
+Man kan fikse dette, hvis man enten konverterer til store eller små bogstaver.
 
 #+begin_src python :exports both :results output :eval never-export
 brugernavn = input("Hvad er dit navn? ")
