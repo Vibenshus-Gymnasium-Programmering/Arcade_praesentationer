@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="da" xml:lang="da">
+<head>
+<!-- 2022-11-06 søn 17:57 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lykken er løkker</title>
+<meta name="author" content="Jacob Debel" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Lykken er løkker</h1>
+<p>
+I præsentationen om tilfældige tal, så I koden til spillet "gæt et tal". I programmet blev de anvendt en <code>while</code>-løkke og den blev også i afleveringen "Flugten på Dune". I denne præsentation vil I få dybere forklaring på anvendelsen af <code>while</code>-løkken og dens nære fætter <code>for</code>-løkken.
+</p>
+
+<p>
+Overordnet set går anvendelsen af løkker ud på at kunne køre den samme kode mange gange. <code>while</code>-løkken anvendes til at køre kode indtil en betingelse er opfyldt, mens <code>for</code>-løkken anvendes til at køre kode et bestemt antal gange.
+</p>
+
+<p>
+Vi lægger ud med <code>for</code>-løkken.
+</p>
+
+<div id="outline-container-org3b0b278" class="outline-2">
+<h2 id="org3b0b278">For-løkken</h2>
+<div class="outline-text-2" id="text-org3b0b278">
+<p>
+Først en lille anekdote om (Johan) Carl Friedrich Gauss.
+</p>
+
+<div id="orgbe3fd75" class="figure">
+<p><img src="./img/Carl_Friedrich_Gauss.jpg" alt="Carl_Friedrich_Gauss.jpg" width="400" />
+</p>
+</div>
+
+<p>
+Som blev udsat for at skulle lægge alle naturlige tal sammen op til 100.
+</p>
+
+<p>
+<a href="https://youtu.be/arf8wDP_MJE?t=47">https://youtu.be/arf8wDP_MJE?t=47</a>
+</p>
+</div>
+
+<div id="outline-container-orgc4fffe9" class="outline-3">
+<h3 id="orgc4fffe9">Naive løsninger til Gauss' problem</h3>
+<div class="outline-text-3" id="text-orgc4fffe9">
+</div>
+<div id="outline-container-org97ce72d" class="outline-4">
+<h4 id="org97ce72d">Den helt dumme løsning</h4>
+<div class="outline-text-4" id="text-org97ce72d">
+<p>
+Første metode er bare at gøre, hvad der blev sagt:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">resultat</span> = 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10
+<span style="color: #6fafff;">resultat</span> += 11 + 12 + 13 + 14 + 15 + 16 + 17 + 18 + 19 + 20
+<span style="color: #6fafff;">resultat</span> += 21 + 22 + 23 + 24 + 25 + 26 + 27 + 28 + 29 + 30
+<span style="color: #6fafff;">resultat</span> += 31 + 32 + 33 + 34 + 35 + 36 + 37 + 38 + 39 + 40
+<span style="color: #6fafff;">resultat</span> += 41 + 42 + 43 + 44 + 45 + 46 + 47 + 48 + 49 + 50
+<span style="color: #6fafff;">resultat</span> += 51 + 52 + 53 + 54 + 55 + 56 + 57 + 58 + 59 + 60
+<span style="color: #6fafff;">resultat</span> += 61 + 62 + 63 + 64 + 65 + 66 + 67 + 68 + 69 + 70
+<span style="color: #6fafff;">resultat</span> += 71 + 72 + 73 + 74 + 75 + 76 + 77 + 78 + 79 + 80
+<span style="color: #6fafff;">resultat</span> += 81 + 82 + 83 + 84 + 85 + 86 + 87 + 88 + 89 + 90
+<span style="color: #6fafff;">resultat</span> += 91 + 92 + 93 + 94 + 95 + 96 + 97 + 98 + 99 + 100
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Summen af alle naturlige tal op til 100 er: </span>{resultat}<span style="color: #f06a3f;">."</span><span style="color: #d0730f;">)</span>
+</pre>
+</div>
+
+<p>
+Dette er altså ikke særligt elegant. Tænk, hvis vi skulle lægge alle hele tal sammen fra 1 til 1000. Øv bøv.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org43c122e" class="outline-4">
+<h4 id="org43c122e">Det kan gøres smartere med en for-løkke</h4>
+<div class="outline-text-4" id="text-org43c122e">
+<p>
+Vi kan gøre det meget nemmere ved hjælp af en <code>for</code>-løkke.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">resultat</span> = 0
+<span style="color: #c48702; font-weight: bold;">for</span> tal <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>101<span style="color: #d0730f;">)</span>:
+    <span style="color: #6fafff;">resultat</span> += tal
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Summen af alle naturlige tal op til 100 er: </span>{resultat}<span style="color: #f06a3f;">."</span><span style="color: #d0730f;">)</span>
+</pre>
+</div>
+
+<p>
+Dette var da meget nemmere! Dette virker også for alle hele tal mellem f.eks. 1 og 1000. Vi skal sågar kun ændre på ét tal.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge0c1186" class="outline-3">
+<h3 id="orge0c1186">Gauss' metode</h3>
+<div class="outline-text-3" id="text-orge0c1186">
+<p>
+Essensen i Gauss' metode er at
+\[\sum_{i=1}^{i=n} i = 1 + 2 + 3 + \dots + n-1 + n = \frac{n\cdot \left( n+1 \right)}{2}\]
+</p>
+
+<p>
+Gauss' løsning skrevet i <code>python</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c48702; font-weight: bold;">def</span> <span style="color: #3dbbb0;">sum_af_naturlige_op_til_n</span><span style="color: #d0730f;">(</span>n<span style="color: #d0730f;">)</span>:
+    <span style="color: #c48702; font-weight: bold;">return</span> n*<span style="color: #d0730f;">(</span>n+1<span style="color: #d0730f;">)</span>//2
+    
+<span style="color: #6fafff;">resultat</span> = sum_af_naturlige_op_til_n<span style="color: #d0730f;">(</span>100<span style="color: #d0730f;">)</span>
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Summen af alle naturlige tal op til 100 er: </span>{resultat}<span style="color: #f06a3f;">."</span><span style="color: #d0730f;">)</span>
+</pre>
+</div>
+
+<p>
+For små tal er der er ingen rigtig forskel i eksekveringstiden for de to funktioner, men for f.eks. 10 000 000, begynder der at være betydelig forskel. 
+</p>
+</div>
+
+<div id="outline-container-org9a25ee8" class="outline-4">
+<h4 id="org9a25ee8">Eksekveringstid</h4>
+<div class="outline-text-4" id="text-org9a25ee8">
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c48702; font-weight: bold;">import</span> time
+<span style="color: #c48702; font-weight: bold;">def</span> <span style="color: #3dbbb0;">naiv_sum</span><span style="color: #d0730f;">(</span>n<span style="color: #d0730f;">)</span>:
+    <span style="color: #6fafff;">resultat</span> = 0
+    <span style="color: #c48702; font-weight: bold;">for</span> tal <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>n+1<span style="color: #d0730f;">)</span>:
+        <span style="color: #6fafff;">resultat</span> += tal
+    <span style="color: #c48702; font-weight: bold;">return</span> resultat
+
+<span style="color: #c48702; font-weight: bold;">def</span> <span style="color: #3dbbb0;">sum_af_naturlige_op_til_n</span><span style="color: #d0730f;">(</span>n<span style="color: #d0730f;">)</span>:
+    <span style="color: #c48702; font-weight: bold;">return</span> n*<span style="color: #d0730f;">(</span>n+1<span style="color: #d0730f;">)</span>//2
+    
+<span style="color: #6fafff;">n</span> = 100
+<span style="color: #6fafff;">starttid_naiv</span> = time.time<span style="color: #d0730f;">()</span>
+<span style="color: #6fafff;">resultat_naiv</span> = naiv_sum<span style="color: #d0730f;">(</span>n<span style="color: #d0730f;">)</span>
+<span style="color: #6fafff;">stoptid_naiv</span> = time.time<span style="color: #d0730f;">()</span>
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Naiv: Summen af alle naturlige tal op til </span>{n}<span style="color: #f06a3f;"> er: </span>{resultat_naiv}<span style="color: #f06a3f;">."</span><span style="color: #d0730f;">)</span>
+
+starttid_gauss= time.time<span style="color: #d0730f;">()</span>
+<span style="color: #6fafff;">resultat_gauss</span> = sum_af_naturlige_op_til_n<span style="color: #d0730f;">(</span>n<span style="color: #d0730f;">)</span>
+<span style="color: #6fafff;">stoptid_gauss</span> = time.time<span style="color: #d0730f;">()</span>
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Gauss: Summen af alle naturlige tal op til </span>{n}<span style="color: #f06a3f;"> er: </span>{resultat_naiv}<span style="color: #f06a3f;">."</span><span style="color: #d0730f;">)</span>
+
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Tid for naiv: </span>{stoptid_naiv - starttid_naiv}<span style="color: #f06a3f;"> s."</span><span style="color: #d0730f;">)</span>
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>f<span style="color: #f06a3f;">"Tid for gauss: </span>{stoptid_gauss - starttid_gauss}<span style="color: #f06a3f;"> s."</span><span style="color: #d0730f;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org03affe2" class="outline-3">
+<h3 id="org03affe2">Opgave</h3>
+<div class="outline-text-3" id="text-org03affe2">
+
+<div id="orgf4d89e6" class="figure">
+<p><img src="./img/Bart_Simpson_2.png" alt="Bart_Simpson_2.png" width="500" />
+</p>
+</div>
+
+<p>
+(Figuren er genereret her: <a href="https://www.ranzey.com/generators/bart/index.html">https://www.ranzey.com/generators/bart/index.html</a>)
+</p>
+
+<ul class="org-ul">
+<li>Skriv jeres eget program, som kan udskrive det samme som Bart gør på billedet.</li>
+<li>I skal anvende en for-løkke.</li>
+<li><p>
+Hvis man <b>ikke</b> har tænkt sig at bruge indekset i en for-løkke, er konventionen at kalde den _ i stedet for <code>tal</code> eller <code>i</code>.
+</p>
+
+<p>
+f.eks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">  <span style="color: #c48702; font-weight: bold;">for</span> _ <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org2fe4bd6" class="outline-3">
+<h3 id="org2fe4bd6">range-funktionen</h3>
+<div class="outline-text-3" id="text-org2fe4bd6">
+<p>
+<code>range</code>-funktionen fungerer på følgende måde
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+<p>
+Er en <b>generator</b> som returnere alle hele tal fra og med 0 til (men ikke med) 10, altså [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>2, 10<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+<p>
+Her får man de hele tal startende fra og med 2 til (men ikke med) 10, altså [2, 3, 4, 5, 6, 7, 8, 9].
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>2, 21, 3<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+<p>
+Hvis der er tre argumenter, så er det sidste argument en <b>skridtlængde</b>. Her starter talrækken fra og med 2, og så hvert 3. naturlige tal der fra op til (men ikke med 21), altså [2, 5, 8, 11, 14, 17, 20].
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>20, 7, -2<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+<p>
+Her tælles der <b>ned</b> i stedet for med en skridtlængde på -2. Altså fås tallene [20, 18, 16, 14, 12, 10, 8].
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0bebf24" class="outline-3">
+<h3 id="org0bebf24">Flere for-løkker inden i hinanden</h3>
+<div class="outline-text-3" id="text-org0bebf24">
+<p>
+Hvis man gerne vil opbygge en <b>3x5</b>-matrice (altså et gitter af tal i 2 dimensioner), som ser således ud
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">11</th>
+<th scope="col" class="org-right">12</th>
+<th scope="col" class="org-right">13</th>
+<th scope="col" class="org-right">14</th>
+<th scope="col" class="org-right">15</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">21</td>
+<td class="org-right">22</td>
+<td class="org-right">23</td>
+<td class="org-right">24</td>
+<td class="org-right">25</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-right">31</td>
+<td class="org-right">23</td>
+<td class="org-right">33</td>
+<td class="org-right">34</td>
+<td class="org-right">35</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+kan den bygges op med de to følgende <code>for</code>-løkker inden i hinanden.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">output</span> = <span style="color: #f06a3f;">""</span>
+<span style="color: #c48702; font-weight: bold;">for</span> raekke <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>3<span style="color: #d0730f;">)</span>:
+    <span style="color: #c48702; font-weight: bold;">for</span> soejle <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>5<span style="color: #d0730f;">)</span>:
+        <span style="color: #6fafff;">output</span> += <span style="color: #ff7a7f; font-weight: bold;">str</span><span style="color: #d0730f;">(</span>raekke+1<span style="color: #d0730f;">)</span>+<span style="color: #ff7a7f; font-weight: bold;">str</span><span style="color: #d0730f;">(</span>soejle+1<span style="color: #d0730f;">)</span> + <span style="color: #f06a3f;">" "</span>
+    <span style="color: #6fafff;">output</span> += <span style="color: #f06a3f;">"\n"</span>
+<span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>output<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org97d13f6" class="outline-3">
+<h3 id="org97d13f6">Programmeringsopgaver</h3>
+<div class="outline-text-3" id="text-org97d13f6">
+<p>
+De følgende opgaver skal gerne løses vha. for-løkker.
+</p>
+
+<ol class="org-ol">
+<li>Udskriv "Hep hey!" 17 gange til terminalen.</li>
+<li>Udskriv en gangetabel for de "små" tabeller (1- til 10-tabellen)</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org760a638" class="outline-3">
+<h3 id="org760a638">Forståelsesopgaver</h3>
+<div class="outline-text-3" id="text-org760a638">
+<ol class="org-ol">
+<li><p>
+Hvad printes der ud her?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>3<span style="color: #d0730f;">)</span>:
+       <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"a"</span><span style="color: #d0730f;">)</span>
+       <span style="color: #c48702; font-weight: bold;">for</span> j <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>3<span style="color: #d0730f;">)</span>:
+           <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"b"</span><span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+Hvad er værdien af <code>a</code>, når den printes ud til sidst?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #6fafff;">a</span> = 0
+   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+       <span style="color: #6fafff;">a</span> = a + 1
+   <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>a<span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+Hvad er værdien af <code>a</code> nu, når den printes ud til sidst?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #6fafff;">a</span> = 0
+   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+       <span style="color: #6fafff;">a</span> = a + 1
+   <span style="color: #c48702; font-weight: bold;">for</span> j <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+       <span style="color: #6fafff;">a</span> = a + 1
+   <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>a<span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+Hvad er værdien af <code>a</code> nu, når den printes ud til sidst?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #6fafff;">a</span> = 0
+   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+       <span style="color: #6fafff;">a</span> = a + 1
+       <span style="color: #c48702; font-weight: bold;">for</span> j <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+           <span style="color: #6fafff;">a</span> = a + 1
+   <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>a<span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+Hvad er værdien af <code>total</code>?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #6fafff;">total</span> = 0
+   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>1, 11<span style="color: #d0730f;">)</span>:
+       <span style="color: #6fafff;">total</span> += i
+   <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>total<span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3d0ed4d" class="outline-2">
+<h2 id="org3d0ed4d">while-løkken</h2>
+<div class="outline-text-2" id="text-org3d0ed4d">
+<p>
+Mens for-løkker anvendes, når en blok skal gentages et <i>bestemt antal gange</i>, så anvendes en while-løkke, <i>indtil en særlig tilstand opstår</i>. Altså, anvend <code>for</code>-løkker, når I kender antallet af gange en kodeblok skal gentages. Anvend <code>while</code>-løkker, når en kodeblok skal gentages et ukendt antal gange indtil en betingelse er opfyldt.
+</p>
+</div>
+
+<div id="outline-container-org4670236" class="outline-3">
+<h3 id="org4670236">Lad os tælle til ti</h3>
+<div class="outline-text-3" id="text-org4670236">
+<p>
+Som det første lærer mange børn at tælle til ti. Det kan vi også gøre med løkker.
+</p>
+
+<p>
+Med en <code>for</code>-løkke er det så simpelt som
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>1,10+1<span style="color: #d0730f;">)</span>:
+    <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+
+
+<p>
+Med en <code>while</code>-løkke ser det lidt anderledes ud:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">i</span> = 1
+<span style="color: #c48702; font-weight: bold;">while</span> i &lt;= 10:
+    <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+    <span style="color: #6fafff;">i</span> +=1
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd31d71f" class="outline-4">
+<h4 id="orgd31d71f">Forskel på for og while</h4>
+<div class="outline-text-4" id="text-orgd31d71f">
+<p>
+Når man anvender en while-løkke, opretter man ofte en variabel, hvis formål blot er at holde styr et tal eller lignende. I det forrige eksempel var det f.eks. <code>i = 1</code>. Når while-løkken er kørt igennem ligger variablen stadig gemt i programmet hukommelse. For en for-løkke oprettes den midlertidige variabel automatisk, og variablen bliver ledig igen efter for-løkkens afslutning. En anden forskel er, at man ofte selv skal huske at ændre værdien af den midlertidige variabel et sted i while-løkken (ofte som det sidste, men nogen gange også som det første). Hvis man ikke gør det, kan while-løkken meget nemt blive til en uendelig løkke, altså en løkke, som aldrig stopper! Dette problem opstår oftest ikke, hvis man anvender for-løkker.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org374fbd7" class="outline-4">
+<h4 id="org374fbd7">Typiske problemer med while-løkker</h4>
+<div class="outline-text-4" id="text-org374fbd7">
+<p>
+Meningen med det følgende program er, at det skal tælle ned fra 10. <b>Hvad er der galt med koden? Hvordan kan det fikses?</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">i</span> = 10
+<span style="color: #c48702; font-weight: bold;">while</span> i == 0:
+    <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+    i -= 1
+</pre>
+</div>
+
+<p>
+Det følgende program ønsker at tælle op til 10. <b>Hvad sker der, når man kører programmet? Hvordan kan det fikses?</b>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">i</span> = 1
+<span style="color: #c48702; font-weight: bold;">while</span> 1 &lt; 10:
+    <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4b38c7e" class="outline-3">
+<h3 id="org4b38c7e">while True, break og continue</h3>
+<div class="outline-text-3" id="text-org4b38c7e">
+<p>
+En while-løkke kan ofte anvendes til at holde f.eks. et spil kørende indtil der foretages et eller flere valg.
+</p>
+
+<p>
+Forestil jer, at I er i gang med et fint lille rollespil, hvor en gruppe af helte møder en stor drage:
+</p>
+
+
+<div id="orge381767" class="figure">
+<p><img src="./img/Fighting_dragon.jpg" alt="Fighting_dragon.jpg" />
+</p>
+</div>
+
+<p>
+Spillet kan spørge, om man ønsker at stoppe og om man ønsker at angribe dragen. I kan selv komme på flere eksempler. Her er en række måder at skrive det op på:
+</p>
+
+<p>
+Eksempel 1:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">False</span>
+<span style="color: #c48702; font-weight: bold;">while</span> <span style="color: #c48702; font-weight: bold;">not</span> <span style="color: #6fafff;">faerdig</span>:
+    luk = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"&#216;nsker du at lukke? "</span><span style="color: #d0730f;">)</span>
+    <span style="color: #c48702; font-weight: bold;">if</span> luk.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+        <span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">True</span>
+
+    <span style="color: #6fafff;">angrib</span> = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"Skal elveren angribe dragen? "</span><span style="color: #d0730f;">)</span>
+    <span style="color: #c48702; font-weight: bold;">if</span> angrib.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+        <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"D&#229;rligt valg! Dragen er ALT for st&#230;rk. Du d&#248;de!"</span><span style="color: #d0730f;">)</span>
+        <span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">True</span>
+</pre>
+</div>
+
+<p>
+Problemet med Eksempel 1 er, at brugeren spørges om elveren skal angribe dragen, selvom <code>faerdig</code> allerede er sat til <code>True</code>. I den følgende kode tages der højde for dette:
+</p>
+
+<p>
+Eksempel 2:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">False</span>
+<span style="color: #c48702; font-weight: bold;">while</span> <span style="color: #c48702; font-weight: bold;">not</span> <span style="color: #6fafff;">faerdig</span>:
+    luk = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"&#216;nsker du at lukke? "</span><span style="color: #d0730f;">)</span>
+    <span style="color: #c48702; font-weight: bold;">if</span> luk.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+        <span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">True</span>
+
+    <span style="color: #c48702; font-weight: bold;">if</span> <span style="color: #c48702; font-weight: bold;">not</span> <span style="color: #6fafff;">faerdig</span>:
+        angrib = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"Skal elveren angribe dragen? "</span><span style="color: #d0730f;">)</span>
+        <span style="color: #c48702; font-weight: bold;">if</span> angrib.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+            <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"D&#229;rligt valg! Dragen er ALT for st&#230;rk. Du d&#248;de!"</span><span style="color: #d0730f;">)</span>
+            <span style="color: #6fafff;">faerdig</span> = <span style="color: #64aa0f;">True</span>
+</pre>
+</div>
+
+<p>
+Endelig kan man også anvende kommandoen <code>break</code> for at bryde ud af en løkke. Et typisk tilsvarende eksempel, som de forrige, vil da se således:
+</p>
+
+<p>
+Eksempel 3:
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #c48702; font-weight: bold;">while</span> <span style="color: #64aa0f;">True</span>: <span style="color: #cf9f7f; font-style: italic;"># </span><span style="color: #cf9f7f; font-style: italic;">K&#248;rer for evigt</span>
+    luk = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"&#216;nsker du at lukke? "</span><span style="color: #d0730f;">)</span>
+    <span style="color: #c48702; font-weight: bold;">if</span> luk.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+        <span style="color: #c48702; font-weight: bold;">break</span> <span style="color: #cf9f7f; font-style: italic;"># </span><span style="color: #cf9f7f; font-style: italic;">Bryder ud af den inderste l&#248;kke (Der er kun &#233;n l&#248;kke i dette eksempel).</span>
+
+    <span style="color: #6fafff;">angrib</span> = <span style="color: #ff7a7f; font-weight: bold;">input</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"Skal elveren angribe dragen? "</span><span style="color: #d0730f;">)</span>
+    <span style="color: #c48702; font-weight: bold;">if</span> angrib.lower<span style="color: #d0730f;">()</span> <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #d0730f;">[</span><span style="color: #f06a3f;">"j"</span>, <span style="color: #f06a3f;">"ja"</span><span style="color: #d0730f;">]</span>:
+        <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span><span style="color: #f06a3f;">"D&#229;rligt valg!. Dragen er ALT for st&#230;rk. Du d&#248;de!"</span><span style="color: #d0730f;">)</span>
+        <span style="color: #c48702; font-weight: bold;">break</span>
+</pre>
+</div>
+
+<p>
+Hvis man anvender <code>continue</code> i midten af eksekveringen af en løkke, så springes der direkte tilbage til toppen af løkken.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org78b39b1" class="outline-3">
+<h3 id="org78b39b1">Forståelsesopgaver</h3>
+<div class="outline-text-3" id="text-org78b39b1">
+<ol class="org-ol">
+<li><p>
+Skriv en while-løkke gør det samme, som den følgende for-løkke:
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #c48702; font-weight: bold;">for</span> i <span style="color: #c48702; font-weight: bold;">in</span> <span style="color: #ff7a7f; font-weight: bold;">range</span><span style="color: #d0730f;">(</span>10<span style="color: #d0730f;">)</span>:
+       <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+Hvad vil følgende kode udskrive, og hvorfor?
+</p>
+<div class="org-src-container">
+<pre class="src src-python">   <span style="color: #6fafff;">i</span> = 1
+   <span style="color: #c48702; font-weight: bold;">while</span> i &lt;= 2**32:
+       <span style="color: #ff7a7f; font-weight: bold;">print</span><span style="color: #d0730f;">(</span>i<span style="color: #d0730f;">)</span>
+       <span style="color: #6fafff;">i</span> *= 2
+</pre>
+</div></li>
+
+<li>Skriv en simpel while-løkke, som spørger brugeren om vedkommende vil fortsætte. Løkken skal starte forfra indtil brugeren skriver "nej" eller lignende.</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd78e1fc" class="outline-2">
+<h2 id="orgd78e1fc">Kodeopgaver</h2>
+<div class="outline-text-2" id="text-orgd78e1fc">
+<p>
+For at kunne besvare de følgende to opgaver skal I lige have en introduktion til binære tal. Det tager vi lige på tavlen. Om I vil anvende for- eller while-løkker, det må I selv om. Hvis I kan komme på løsningsmetoder, så er det også helt ok.
+</p>
+</div>
+
+<div id="outline-container-org5fb67a7" class="outline-3">
+<h3 id="org5fb67a7">Konverter fra titalstal til binære tal</h3>
+<div class="outline-text-3" id="text-org5fb67a7">
+<p>
+Skriv en funktion, som tager et tal i titalsbasis (et almindeligt tal) som argument, og returnere tallet skrevet i binære tal.
+</p>
+
+<p>
+Følgende algoritme kan anvendes til at konvertere fra titalsbasis til binære tal:
+</p>
+<ol class="org-ol">
+<li>Tag starttallet og divider det med 2.</li>
+<li>Skriv <b>resten</b> som er tilbage efter divisionen ned. Dette er enten 0 eller 1. Dette til være det sidste ciffer i det binære tal, altså tallet længst til højre.</li>
+<li>Gem <b>kvotienten</b> fra den tidligere division. Altså det største hele tal, som fremkommer ved divisionen. <b>Dette tal er jeres nye starttal</b>.</li>
+<li>Gentag de første 3 skridt indtil der ikke er mere at dividere. Sørg for at nedskrive de nye <b>rester</b> til <b>venstre</b> for de forrige rester.</li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-org4ca1d27" class="outline-3">
+<h3 id="org4ca1d27">Konverter fra binære til til titalstal</h3>
+<div class="outline-text-3" id="text-org4ca1d27">
+<p>
+Skriv en funktion, som tager et binært tal som argument, og returnerer tallet skrevet som almindelige tal i basis ti (et almindeligt tal).
+</p>
+
+<p>
+Her er en algoritme, som kan gøre det:
+</p>
+<ol class="org-ol">
+<li>Tag tallet længst til venstre i tallet. <b>Multiplicér</b> tallet med 2.</li>
+<li>Læg det næste ciffer i det binære tal til det forrige resultat. <b>Dette vil være det nye starttal.</b></li>
+<li>Gentag de to beskrevne skridt indtil der ikke er flere cifre. Først gang med 2 og læg så det sidste ciffer til.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Forfatter: Jacob Debel</p>
+<p class="date">Created: 2022-11-06 søn 17:57</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -41,9 +41,9 @@ print(f"c = {c}")
 
 #+RESULTS:
 #+begin_example
-a = 1
-b = 3
-c = 6
+a = 4
+b = 4
+c = 18
 #+end_example
 
 
@@ -63,6 +63,12 @@ b = random.randint(2, 4) # b kan altså kun være 2, 3 og 4
 print(f"b = {b}")
 #+end_src
 
+#+RESULTS:
+#+begin_example
+a = 5
+b = 2
+#+end_example
+
 
 * Tilfældige kommatal
 
@@ -75,6 +81,20 @@ for _ in range(10):
     print(random.random())
 #+end_src
 
+#+RESULTS:
+#+begin_example
+0.8150913606464288
+0.07397052353932554
+0.005883678485159027
+0.34220314659519935
+0.1842690851371448
+0.6286296902960742
+0.26424084433250017
+0.9472427608922108
+0.4906632362023625
+0.9932488611078196
+#+end_example
+
 ** uniform
 ~random.uniform~ kan give returnere tilfældige kommatal i et interval, hvor sandsynligheden er lige stor for alle decimaltallene.
 
@@ -83,6 +103,20 @@ import random
 for _ in range(10):
     print(random.uniform(2.5, 17.5))
 #+end_src
+
+#+RESULTS:
+#+begin_example
+17.00579055310127
+4.490579245408291
+15.001201757818208
+3.2451765219566013
+16.059751592714623
+7.663094944290456
+4.931070601203658
+6.618548868430212
+10.185962047007152
+11.134883919228598
+#+end_example
 
 
 ** Gæt et tal
