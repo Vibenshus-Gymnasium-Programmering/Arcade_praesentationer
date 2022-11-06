@@ -10,3 +10,4 @@ Indtil videre er der følgende præsentationer:
 - [[./05_Tegn_med_funktioner/05_Tegn_med_funktioner.org][05_Tegn_med_funktioner]]
 - [[./06_Betinget_udfoerelse/06_Betinget_udfoerelse.org][06_Betinget_udfoerelse]]
 - [[./07_tilfaeldige_tal/07_tilfaeldige_tal.org][07_Tilfaeldige_tal]]
+- [[./08_loekker/08_loekker.org][08_loekker]]
