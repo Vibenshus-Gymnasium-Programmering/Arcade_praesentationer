@@ -50,6 +50,7 @@ Dette var da meget nemmere! Dette virker også for alle hele tal mellem f.eks. 1
 
 ** Gauss' metode
 Essensen i Gauss' metode er at
+
 $$\sum_{i=1}^{i=n} i = 1 + 2 + 3 + \dots + n-1 + n = \frac{n\cdot \left( n+1 \right)}{2}$$
 
 Gauss' løsning skrevet i ~python~:
