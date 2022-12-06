@@ -363,4 +363,4 @@ Skriv en funktion, som tager et binært tal som argument, og returnerer tallet s
 Her er en algoritme, som kan gøre det:
 1. Tag tallet længst til venstre i tallet. *Multiplicér* tallet med 2.
 2. Læg det næste ciffer i det binære tal til det forrige resultat. *Dette vil være det nye starttal.*
-3. Gentag de to beskrevne skridt indtil der ikke er flere cifre. Først gang med 2 og læg så det sidste ciffer til.
+3. Gentag de to beskrevne skridt indtil der ikke er flere cifre. Først gang med 2 og læg så det næste ciffer til.

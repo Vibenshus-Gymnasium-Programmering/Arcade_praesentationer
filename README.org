@@ -11,3 +11,5 @@ Indtil videre er der følgende præsentationer:
 - [[./06_Betinget_udfoerelse/06_Betinget_udfoerelse.org][06_Betinget_udfoerelse]]
 - [[./07_tilfaeldige_tal/07_tilfaeldige_tal.org][07_Tilfaeldige_tal]]
 - [[./08_loekker/08_loekker.org][08_loekker]]
+- [[./09_Datatyper/09_Datatyper.org][09_Datatyper]]
+- [[./10_OOP/10_OOP.org][10_OOP]]

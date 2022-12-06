@@ -1,0 +1,371 @@
+#+title: Datatyper i python
+#+options: ^:{}
+
+I har brugt dem, uden at tænke over dem, altså forskellige datatyper i python. Nu får I lige en kort introduktion til dem alle samt nogle nye.
+
+* De basale datatyper
+
+Indtil videre har I faktisk arbejdet med =datatyperne=:
+
+- Streng (string)
+- Heltal (integer)
+- Kommatal (float)
+- Sandhedsværdi/Boolske variable (boolean, True og False)
+
+
+Hvis man er i tvivl om, hvilken datatype en given variabel er, kan man altid printe typen ud til terminalen, som f.eks.
+
+#+begin_src python :exports both :results output :eval never-export
+Svaret_paa_alt = 42
+print(f"Svaret_paa_alt = {Svaret_paa_alt} er af typen: {type(Svaret_paa_alt)}")
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Svaret_paa_alt = 42 er af typen: <class 'int'>
+#+end_example
+
+Her kan det ses, at =Svaret_paa_alt= er af typen =int=, hvilket vil sige et heltal.
+
+*Opgave*
+
+Skriv et kort program, som kan fortælle, hvilken type =x= er for hver af de følgende eksempler:
+
+#+begin_src python :exports both :results output :eval never-export
+x = 2.71828182846
+x = "Hep Hey - Hepa" # Tribute to ungdomsklovnen Krølle
+x = True
+x = [1, "to", 3.0]
+x = (10, "ni", 0b1000)
+x = {"alarmcentralen": 112, "akuttelefonen": 1813}
+#+end_src
+
+* Lister
+Som I så i forrige opgave var der nye typer så som =list=, =tuple= og =dict=. I dette afsnit vil vi se lidt nærmere på =lister= som type.
+
+Hvis I har erfaring fra andre programmeringssprog, har I måske støt på typen =array=. En liste i python er at betragte som et array i andre sprog dog med den *forskel*, at lister i python kan ændres i størrelse, og man kan gemme forskellige typer inden i en liste.
+
+** Deklaration af lister
+Lister skrives med firkantede parenteser. Hvis man vil lave en indkøbsseddel, kan man f.eks. skrive
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Mælk", "Æg", "Havregryn"]
+print(indkoeb)
+# Hvis kommer på noget senere, som skal på listen kan man appende
+indkoeb.append("Gulerødder")
+print(indkoeb)
+# Hvis et nyt element skal have en særlig plads kan man bruge insert
+indkoeb.insert(0, "Monster energidrik") # Indsat i starten af listen
+print(indkoeb)
+#+end_src
+
+Hvis man vil fjerne elementer fra en liste kan man anvende =pop= og =clear=. =pop()= returnere og fjerner det sidste element i en liste, mens =pop(1)= returnere og fjerner det andet element i en liste. =clear()= fjerner alle elementer i en liste.
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Monster energidrik", "Mælk", "Æg", "Gulerødder"]
+print(indkoeb)
+indkoeb.pop()
+print(indkoeb)
+indkoeb.pop(1)
+print(indkoeb)
+indkoeb.clear()
+print(indkoeb)
+#+end_src
+
+Der er endnu flere metoder tilknyttet lister. I kan bl.a. ser dem her: [[https://docs.python.org/3/tutorial/datastructures.html]].
+
+** Listers indeks
+Hvis man ikke vil printe en hel liste ud på en gang men kun et enkelt element, kan man anvende at lister har *indeks*. Indekset peger på ét bestemt element i listen.
+Nedenfor er et eksempel på anvendelsen af indeks. *Hvad tror I, programmet skriver ud?*
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Monster energidrik", "Mælk", "Æg", "Gulerødder"]
+print(indkoeb[1])
+print(indkoeb[3])
+print(indkoeb[0])
+print(indkoeb[-1])
+print(indkoeb[4])
+#+end_src
+
+
+De vigtige pointer er at indeks angives i firkantede parenteser efter listens navn, og at det første indeks starter med 0.
+
+Ellers så I også, at man i python kan tælle fra enden af en liste i stedet for fra starten, ved at skrive minus foran.
+
+** Ændring af listes elementer
+Hvis man allerede har en liste, man kan ændre indholdet et givent sted i listen vha. indekset.
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Monster energidrik", "Mælk", "Æg", "Gulerødder"]
+print(indkoeb)
+indkoeb[0] = "Redbull"
+print(indkoeb)
+#+end_src
+
+Man kan dog ikke tilføje et nyt element til en liste, ved at forsøge at indsætte et element i en position, som endnu ikke findes. Følgende virker f.eks. *ikke*.
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Redbull", "Mælk", "Æg", "Gulerødder"]
+print(indkoeb)
+indkoeb[4] = "Kaffe"
+#+end_src
+
+Hvis man skal tilføje noget, så skal man anvende =append()= eller =insert(i,x)=.
+
+*Opgave*
+
+Ændr den givne indkoebsliste så den passer med jeres egne personlige indkøb. Der skal mindst være 7 elementer i listen. Måske skal onsdagsegle på listen. :)
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
+#+end_src
+
+** Tomme lister
+Hvis man vil oprette tomme lister er det to måder at gøre det på.
+
+#+begin_src python :exports both :results output :eval never-export
+tom_liste_1 = list()
+print(tom_liste_1)
+tom_liste_2 = []
+print(tom_liste_2)
+#+end_src
+
+** Iteration (loope) over en liste
+I har før arbejdet med både for- og while-løkken, men mest med udgangspunkt i *iteratoren* =range=, altså f.eks.
+
+#+begin_src python :exports both :results output :eval never-export
+for i in range(10):
+    print(i)
+#+end_src
+
+Det samme princip kan bruges for lister. Hvis man f.eks. vil udskrive alle varerne på sin indkøbsseddel kan det gøres på en pythonistiske måde, som følger:
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
+for vare in indkoeb:
+    print(vare)
+#+end_src
+
+Her kan man selv vælge variabelnavnet (=vare=), så det giver mening sprogmæssigt i selve koden.
+
+Alternativt kan man anvende indekset til at udskrive indholdet i en liste:
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
+
+for indeks in range(len(indkoeb)):
+    print(indkoeb[indeks])
+#+end_src
+
+Her returnere funktionen =len= længden af listen (4 i dette specifikke tilfælde), mens =range= er en *generator*, som danner tallene 0, 1, 2 og 3. I kan bare forestille jer, at det er listen =[0, 1, 2, 3]=. Endelig antager =indeks= værdierne 0, 1, 2, 3 i den rækkefølge.
+
+Denne måde at gøre det på, ser man typisk i sprog som C, C++, Java. "Rigtige" pythonprogrammører foretrækker den første måde.
+
+Hvis man både skal bruge selve indekset og elementet i en liste, så er den /pythonistiske/ måde at anvende den indbyggede funktion =enumerate=:
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
+
+for indeks, vare in enumerate(indkoeb):
+    print(indeks, vare)
+#+end_src
+
+
+* Tupler (tuples)
+Tupler ligner lister til forveksling. Den umiddelbare forskel er, at de skrives med almindelige parenteser () i stedet for firkantede.
+
+Man kan stadig lave sin indkøbsseddel med en tuple i stedet for en liste:
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
+print(indkoeb)
+#+end_src
+
+Men man kan ikke *ændre* på tuplen, når den først er dannet!
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
+indkoeb[0] = "Margarine"
+print(indkoeb)
+#+end_src
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
+indkoeb.pop()
+print(indkoeb)
+#+end_src
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
+indkoeb.clear()
+print(indkoeb)
+#+end_src
+
+#+begin_src python :exports both :results output :eval never-export
+indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
+indkoeb.append("Slik")
+print(indkoeb)
+#+end_src
+
+Man kan spørge sig selv om, hvorfor man kunne ønske sig denne begrænsning. Én ting er, at computeren kan køre hurtigere, hvis den på forhånd ved at en værdi i kan ændre sig. En anden ting er, at nogle gange vil vi være sikre på at en værdi ikke kan ændre sig. F.eks. er konstanten =arcade.csscolor.DARK_SEA_GREEN= givet som tuplen =(143, 188, 143)=. Denne værdi, er der ingen, der har interesse i ændre sig, for så er det jo pludseligt en anden farve. I et sådant tilfælde er en tuple et bedre valg end en liste. 
+
+* Ordbøger (dictionaries)
+I allerførste opgave i denne præsentation så i nok en datatype =dict=. =dict= står for /dictionary/, som vi på dansk måske bedst kender som en /ordbog/. I kan tænke på det som en (gammeldags) /telefonbog/, hvor man kan slå et navn op og så finde et telefonnummer, som passer til. Det virker selvfølgelig på samme måde med jeres telefonbøger på jeres telefoner. Et dictionary et bygget op omkring /nøgler/ (keys) og tilhørende /værdier/ (values) adskilt med kolon (:), og skrives inden i /krøllede parenteser/ med komma (,) mellem hvert sæt af nøgle og værdi. Her er et eksempel:
+
+#+begin_src python :exports both :results output :eval never-export
+telefonbog = {"skolen": 33880605, "Rikke Rektor": 29615585, "alarmcentralen" : 112, "vagtlægen": 1813}
+print("-------------")
+print(telefonbog)
+print("-------------")
+print(telefonbog["skolen"])
+print("-------------")
+for noegle in telefonbog:
+   print(noegle)
+print("-------------")
+for noegle, vaerdi in telefonbog.items():
+    print(noegle, vaerdi)
+#+end_src
+
+
+Hvis man vil tilføje et nøgle-værdi-par til et dictionary gør man således
+
+#+begin_src python :exports both :results output :eval never-export
+telefonbog = {"skolen": 33880605, "Rikke Rektor": 29615585, "alarmcentralen" : 112, "vagtlægen": 1813}
+print(telefonbog)
+telefonbog["Tandlaegevagten"]= 70250041
+print(telefonbog)
+#+end_src
+
+
+Hvis man vil slette et nægle-værdi-par i et dectionary skal man anvende funktion =del= (for delete).
+
+#+begin_src python :exports both :results output :eval never-export
+telefonbog = {"skolen": 33880605, "Rikke Rektor": 29615585, "alarmcentralen" : 112, "vagtlægen": 1813}
+print(telefonbog)
+del(telefonbog["skolen"])
+print(telefonbog)
+#+end_src
+
+* Strenge (som liste af karakterer)
+En tekststreng, som f.eks. "Kan vi få en danskvand til Svenne! Danskvand til Svenne." er en datatype for sig selv. I mange tilfælde kan man dog betragte en streng som en liste af karakterer, hvor hvert bogstav/karakter er et element i listen. Med lister og strenge man kan tilgå hvert element vha indekset, som I har set tidligere, men yderligere kan man også "slice" en liste/en streng, altså udskære dele af den.
+
+*Opgave*
+
+Kan I lure, hvordan slice-syntaksen er ud fra de følgende eksempler?
+
+#+begin_src python :exports both :results output :eval never-export
+citat = "Kan vi få en danskvand til Svenne! Danskvand til Svenne."
+
+print(f"citat[0] = {citat[0]}")
+print(f"citat[1] = {citat[1]}")
+print(f"citat[-1] = {citat[-1]}")
+print(f"citat[-7] = {citat[-7]}")
+
+
+print(f"citat[:6] = {citat[:6]}")
+print(f"citat[6:] = {citat[6:]}")
+print(f"citat[-6:] = {citat[-6:]}")
+print(f"citat[:-6] = {citat[:-6]}")
+
+print(f"citat[13:22] = {citat[13:22]}")
+print(f"citat[13:22:2] = {citat[13:22:2]}")
+print(f"citat[13:22:-2] = {citat[22:12:-1]}")
+
+print(f"citat[::-1] = {citat[::-1]}")
+
+#+end_src
+
+- Afprøv koden, som den er i første omgang.
+- Tilføj selv ny kode, som kan teste jeres forståelse af syntaksen af.
+
+*Opgave*
+
+Start med at kopiere følgende kode ind i en ny pythonfil, som I kan eksperimentere i:
+
+#+begin_src python :exports both :results output :eval never-export
+maaneder = "JanFebMarAprMajJunJulAugSepOktNovDec"
+
+maanedsnummer = int(input("Indtast et månedsnummer: "))
+#+end_src
+
+- Udvid programmet, så det printer månedsforkortelsen ud, som passer til månedsnummeret.
+  - Beregn startnummeret i strengen =maaneder=
+  - Brug efterfølgende slice-syntaksen for at udskrive kun den relevante del af =maaneder=.
+
+   
+** Aritmetik med strenge
+I python er det også muligt at anvende nogle af de matematiske operationer såsom addition og multiplikation. Se en gang, hvad der sker:
+
+#+begin_src python :exports both :results output :eval never-export
+a = "Hej"
+b = "med"
+c = "jer"
+d = "!"
+
+print(a+b)
+print(a+b+c)
+print(a+b+c+d)
+
+print(3 * a)
+print(a * 3)
+
+print(2*a + 3*b + c+4*d)
+#+end_src
+
+    
+* Opgave - Røversprogsgenerator
+
+- I får først en livedemonstration af røversprog. Kan I knække koden?
+
+- Skriv nu et program, som kan oversætte fra almindeligt sprog til røversprog.
+
+
+* Opgave - Simpel Cæsarkryptering
+
+#+DOWNLOADED: screenshot @ 2022-12-06 14:33:11
+#+attr_html: :width 600px
+[[file:img/2022-12-06_14-33-11_screenshot.png]]
+
+Cæsarkryptering er en af de simpleste måder at kryptere på.
+
+- Først skriver man sin ønskede tekst op almindeligt.
+- Derefter rykker man alle bogstaver det samme antal pladser i alfabetet (eller i en anden form for tabel.
+- Dekryptering foregår ved at modtage den krypterede besked og så rykke hvert bogstav det samme antal pladser tilbage.
+- Antallet af felter, der skal rykkes, er altså nøglen til både kryptering og dekryptering.
+
+I de følgende eksempler ser I, hvordan en simpel Cæsarkryptering og dekryptering kan foregå vha UTF-8 tabellen (måske har I hørt om ASCII-tabellen).
+
+#+begin_src python :exports both :results output :eval never-export
+alm_tekst = "I gætter aldrig min hemmelige besked!"
+
+def krypter_caesar(alm_tekst):
+    krypteret_tekst = ""
+    for karakter in alm_tekst:
+        utf_nummer = ord(karakter)
+        nyt_uft_nummer = utf_nummer + 1
+        krypteret_tekst += chr(nyt_uft_nummer)
+    return krypteret_tekst
+
+def dekrypter_caesar(krypteret_tekst):
+    dekrypteret_tekst = ""
+    for karakter in krypteret_tekst:
+        utf_nummer = ord(karakter)
+        nyt_uft_nummer = utf_nummer - 1
+        dekrypteret_tekst += chr(nyt_uft_nummer)
+    return dekrypteret_tekst
+        
+krypteret_tekst = krypter_caesar(alm_tekst)
+print(krypteret_tekst)
+dekrypteret_tekst = dekrypter_caesar(krypteret_tekst)
+print(dekrypteret_tekst)
+#+end_src
+
+- Som altid, kopiér koden ind i en tom pythonfil, som I kan eksperimentere i.
+- Kør koden, og se hvad der sker.
+- Funktionen =ord()= tager en karakter og returnerer UTF-8-tallet som passer til jvf. UTF-8-tabellen.
+- Funktionen =chr()= tager et UTF-8-tal og returnerer den tilsvarende karakter i UTF-8-tabellen.
+
+- Undersøg hvilke UTF-8-tal som passer til de almindelige engelske/danske tegn.
+- Gennemlæs den udleverede kode og omskriv den, så krypterings- og dekrypteringsfunktionerne kan foregå med en selvvalgt nøgle (altså antallet af rykkede pladser i UTF-8-tabellen)
+
+
