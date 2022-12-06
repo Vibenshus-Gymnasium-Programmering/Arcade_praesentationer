@@ -59,7 +59,7 @@ indkoeb.insert(0, "Monster energidrik") # Indsat i starten af listen
 print(indkoeb)
 #+end_src
 
-Hvis man vil fjerne elementer fra en liste kan man anvende =pop= og =clear=. =pop()= returnere og fjerner det sidste element i en liste, mens =pop(1)= returnere og fjerner det andet element i en liste. =clear()= fjerner alle elementer i en liste.
+Hvis man vil fjerne elementer fra en liste kan man anvende =pop= og =clear=. =pop()= returnerer og fjerner det sidste element i en liste, mens =pop(1)= returnere og fjerner det andet element i en liste. =clear()= fjerner alle elementer i en liste.
 
 #+begin_src python :exports both :results output :eval never-export
 indkoeb = ["Monster energidrik", "Mælk", "Æg", "Gulerødder"]
@@ -138,7 +138,7 @@ for i in range(10):
     print(i)
 #+end_src
 
-Det samme princip kan bruges for lister. Hvis man f.eks. vil udskrive alle varerne på sin indkøbsseddel kan det gøres på en pythonistiske måde, som følger:
+Det samme princip kan bruges for lister. Hvis man f.eks. vil udskrive alle varerne på sin indkøbsseddel kan det gøres på den pythonistiske måde, som følger:
 
 #+begin_src python :exports both :results output :eval never-export
 indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
@@ -157,7 +157,7 @@ for indeks in range(len(indkoeb)):
     print(indkoeb[indeks])
 #+end_src
 
-Her returnere funktionen =len= længden af listen (4 i dette specifikke tilfælde), mens =range= er en *generator*, som danner tallene 0, 1, 2 og 3. I kan bare forestille jer, at det er listen =[0, 1, 2, 3]=. Endelig antager =indeks= værdierne 0, 1, 2, 3 i den rækkefølge.
+Her returnerer funktionen =len= længden af listen (4 i dette specifikke tilfælde), mens =range= er en *generator*, som danner tallene 0, 1, 2 og 3. I kan bare forestille jer, at det er listen =[0, 1, 2, 3]=. Endelig antager =indeks= værdierne 0, 1, 2, 3 i den rækkefølge.
 
 Denne måde at gøre det på, ser man typisk i sprog som C, C++, Java. "Rigtige" pythonprogrammører foretrækker den første måde.
 
@@ -184,24 +184,28 @@ print(indkoeb)
 Men man kan ikke *ændre* på tuplen, når den først er dannet!
 
 #+begin_src python :exports both :results output :eval never-export
+# Virker ikke!
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 indkoeb[0] = "Margarine"
 print(indkoeb)
 #+end_src
 
 #+begin_src python :exports both :results output :eval never-export
+# Virker ikke!
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 indkoeb.pop()
 print(indkoeb)
 #+end_src
 
 #+begin_src python :exports both :results output :eval never-export
+# Virker ikke!
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 indkoeb.clear()
 print(indkoeb)
 #+end_src
 
 #+begin_src python :exports both :results output :eval never-export
+# Virker ikke!
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 indkoeb.append("Slik")
 print(indkoeb)
@@ -246,7 +250,7 @@ del(telefonbog["skolen"])
 print(telefonbog)
 #+end_src
 
-* Strenge (som liste af karakterer)
+* Strenge (som i lister af karakterer)
 En tekststreng, som f.eks. "Kan vi få en danskvand til Svenne! Danskvand til Svenne." er en datatype for sig selv. I mange tilfælde kan man dog betragte en streng som en liste af karakterer, hvor hvert bogstav/karakter er et element i listen. Med lister og strenge man kan tilgå hvert element vha indekset, som I har set tidligere, men yderligere kan man også "slice" en liste/en streng, altså udskære dele af den.
 
 *Opgave*
@@ -289,7 +293,7 @@ maanedsnummer = int(input("Indtast et månedsnummer: "))
 #+end_src
 
 - Udvid programmet, så det printer månedsforkortelsen ud, som passer til månedsnummeret.
-  - Beregn startnummeret i strengen =maaneder=
+  - Beregn startnummeret i strengen =maaneder=.
   - Brug efterfølgende slice-syntaksen for at udskrive kun den relevante del af =maaneder=.
 
    
@@ -323,7 +327,7 @@ print(2*a + 3*b + c+4*d)
 * Opgave - Simpel Cæsarkryptering
 
 #+DOWNLOADED: screenshot @ 2022-12-06 14:33:11
-#+attr_html: :width 600px
+#+attr_html: :width 400px
 [[file:img/2022-12-06_14-33-11_screenshot.png]]
 
 Cæsarkryptering er en af de simpleste måder at kryptere på.
