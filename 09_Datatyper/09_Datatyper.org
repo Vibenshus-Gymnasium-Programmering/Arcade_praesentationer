@@ -33,12 +33,28 @@ Skriv et kort program, som kan fortælle, hvilken type =x= er for hver af de fø
 
 #+begin_src python :exports both :results output :eval never-export
 x = 2.71828182846
+print(type(x))
 x = "Hep Hey - Hepa" # Tribute to ungdomsklovnen Krølle
+print(type(x))
 x = True
+print(type(x))
 x = [1, "to", 3.0]
+print(type(x))
 x = (10, "ni", 0b1000)
+print(type(x))
 x = {"alarmcentralen": 112, "akuttelefonen": 1813}
+print(type(x))
 #+end_src
+
+#+RESULTS:
+#+begin_example
+<class 'float'>
+<class 'str'>
+<class 'bool'>
+<class 'list'>
+<class 'tuple'>
+<class 'dict'>
+#+end_example
 
 * Lister
 Som I så i forrige opgave var der nye typer så som =list=, =tuple= og =dict=. I dette afsnit vil vi se lidt nærmere på =lister= som type.
@@ -56,8 +72,16 @@ indkoeb.append("Gulerødder")
 print(indkoeb)
 # Hvis et nyt element skal have en særlig plads kan man bruge insert
 indkoeb.insert(0, "Monster energidrik") # Indsat i starten af listen
+indkoeb.insert(3, "Tomater") # Indsat i starten af listen
 print(indkoeb)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+['Mælk', 'Æg', 'Havregryn']
+['Mælk', 'Æg', 'Havregryn', 'Gulerødder']
+['Monster energidrik', 'Mælk', 'Æg', 'Tomater', 'Havregryn', 'Gulerødder']
+#+end_example
 
 Hvis man vil fjerne elementer fra en liste kan man anvende =pop= og =clear=. =pop()= returnerer og fjerner det sidste element i en liste, mens =pop(1)= returnere og fjerner det andet element i en liste. =clear()= fjerner alle elementer i en liste.
 
@@ -72,6 +96,14 @@ indkoeb.clear()
 print(indkoeb)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+['Monster energidrik', 'Mælk', 'Æg', 'Gulerødder']
+['Monster energidrik', 'Mælk', 'Æg']
+['Monster energidrik', 'Æg']
+[]
+#+end_example
+
 Der er endnu flere metoder tilknyttet lister. I kan bl.a. ser dem her: [[https://docs.python.org/3/tutorial/datastructures.html]].
 
 ** Listers indeks
@@ -84,8 +116,22 @@ print(indkoeb[1])
 print(indkoeb[3])
 print(indkoeb[0])
 print(indkoeb[-1])
-print(indkoeb[4])
+print(indkoeb[-2])
+print(indkoeb[-3])
+print(indkoeb[-4])
+print(indkoeb[-5])
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Mælk
+Gulerødder
+Monster energidrik
+Gulerødder
+Æg
+Mælk
+Monster energidrik
+#+end_example
 
 
 De vigtige pointer er at indeks angives i firkantede parenteser efter listens navn, og at det første indeks starter med 0.
@@ -102,13 +148,25 @@ indkoeb[0] = "Redbull"
 print(indkoeb)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+['Monster energidrik', 'Mælk', 'Æg', 'Gulerødder']
+['Redbull', 'Mælk', 'Æg', 'Gulerødder']
+#+end_example
+
 Man kan dog ikke tilføje et nyt element til en liste, ved at forsøge at indsætte et element i en position, som endnu ikke findes. Følgende virker f.eks. *ikke*.
 
 #+begin_src python :exports both :results output :eval never-export
+# Virker ikke på denne måde
 indkoeb = ["Redbull", "Mælk", "Æg", "Gulerødder"]
 print(indkoeb)
 indkoeb[4] = "Kaffe"
 #+end_src
+
+#+RESULTS:
+#+begin_example
+['Redbull', 'Mælk', 'Æg', 'Gulerødder']
+#+end_example
 
 Hvis man skal tilføje noget, så skal man anvende =append()= eller =insert(i,x)=.
 
@@ -138,6 +196,20 @@ for i in range(10):
     print(i)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+#+end_example
+
 Det samme princip kan bruges for lister. Hvis man f.eks. vil udskrive alle varerne på sin indkøbsseddel kan det gøres på den pythonistiske måde, som følger:
 
 #+begin_src python :exports both :results output :eval never-export
@@ -145,6 +217,14 @@ indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
 for vare in indkoeb:
     print(vare)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Smør
+Mælk
+Æg
+Gulerødder
+#+end_example
 
 Her kan man selv vælge variabelnavnet (=vare=), så det giver mening sprogmæssigt i selve koden.
 
@@ -156,6 +236,14 @@ indkoeb = ["Smør", "Mælk", "Æg", "Gulerødder"]
 for indeks in range(len(indkoeb)):
     print(indkoeb[indeks])
 #+end_src
+
+#+RESULTS:
+#+begin_example
+Smør
+Mælk
+Æg
+Gulerødder
+#+end_example
 
 Her returnerer funktionen =len= længden af listen (4 i dette specifikke tilfælde), mens =range= er en *generator*, som danner tallene 0, 1, 2 og 3. I kan bare forestille jer, at det er listen =[0, 1, 2, 3]=. Endelig antager =indeks= værdierne 0, 1, 2, 3 i den rækkefølge.
 
@@ -170,6 +258,14 @@ for indeks, vare in enumerate(indkoeb):
     print(indeks, vare)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+0 Smør
+1 Mælk
+2 Æg
+3 Gulerødder
+#+end_example
+
 
 * Tupler (tuples)
 Tupler ligner lister til forveksling. Den umiddelbare forskel er, at de skrives med almindelige parenteser () i stedet for firkantede.
@@ -179,7 +275,18 @@ Man kan stadig lave sin indkøbsseddel med en tuple i stedet for en liste:
 #+begin_src python :exports both :results output :eval never-export
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 print(indkoeb)
+for vare in indkoeb:
+    print(vare)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+('Smør', 'Mælk', 'Æg', 'Gulerødder')
+Smør
+Mælk
+Æg
+Gulerødder
+#+end_example
 
 Men man kan ikke *ændre* på tuplen, når den først er dannet!
 
@@ -190,12 +297,16 @@ indkoeb[0] = "Margarine"
 print(indkoeb)
 #+end_src
 
+#+RESULTS:
+
 #+begin_src python :exports both :results output :eval never-export
 # Virker ikke!
 indkoeb = ("Smør", "Mælk", "Æg", "Gulerødder")
 indkoeb.pop()
 print(indkoeb)
 #+end_src
+
+#+RESULTS:
 
 #+begin_src python :exports both :results output :eval never-export
 # Virker ikke!
@@ -222,6 +333,7 @@ print("-------------")
 print(telefonbog)
 print("-------------")
 print(telefonbog["skolen"])
+print(telefonbog["alarmcentralen"])
 print("-------------")
 for noegle in telefonbog:
    print(noegle)
@@ -229,6 +341,25 @@ print("-------------")
 for noegle, vaerdi in telefonbog.items():
     print(noegle, vaerdi)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+-------------
+{'skolen': 33880605, 'Rikke Rektor': 29615585, 'alarmcentralen': 112, 'vagtlægen': 1813}
+-------------
+33880605
+112
+-------------
+skolen
+Rikke Rektor
+alarmcentralen
+vagtlægen
+-------------
+skolen 33880605
+Rikke Rektor 29615585
+alarmcentralen 112
+vagtlægen 1813
+#+end_example
 
 
 Hvis man vil tilføje et nøgle-værdi-par til et dictionary gør man således
@@ -240,6 +371,12 @@ telefonbog["Tandlaegevagten"]= 70250041
 print(telefonbog)
 #+end_src
 
+#+RESULTS:
+#+begin_example
+{'skolen': 33880605, 'Rikke Rektor': 29615585, 'alarmcentralen': 112, 'vagtlægen': 1813}
+{'skolen': 33880605, 'Rikke Rektor': 29615585, 'alarmcentralen': 112, 'vagtlægen': 1813, 'Tandlaegevagten': 70250041}
+#+end_example
+
 
 Hvis man vil slette et nægle-værdi-par i et dectionary skal man anvende funktion =del= (for delete).
 
@@ -249,6 +386,12 @@ print(telefonbog)
 del(telefonbog["skolen"])
 print(telefonbog)
 #+end_src
+
+#+RESULTS:
+#+begin_example
+{'skolen': 33880605, 'Rikke Rektor': 29615585, 'alarmcentralen': 112, 'vagtlægen': 1813}
+{'Rikke Rektor': 29615585, 'alarmcentralen': 112, 'vagtlægen': 1813}
+#+end_example
 
 * Strenge (som i lister af karakterer)
 En tekststreng, som f.eks. "Kan vi få en danskvand til Svenne! Danskvand til Svenne." er en datatype for sig selv. I mange tilfælde kan man dog betragte en streng som en liste af karakterer, hvor hvert bogstav/karakter er et element i listen. Med lister og strenge man kan tilgå hvert element vha indekset, som I har set tidligere, men yderligere kan man også "slice" en liste/en streng, altså udskære dele af den.
@@ -273,7 +416,7 @@ print(f"citat[:-6] = {citat[:-6]}")
 
 print(f"citat[13:22] = {citat[13:22]}")
 print(f"citat[13:22:2] = {citat[13:22:2]}")
-print(f"citat[13:22:-2] = {citat[22:12:-1]}")
+print(f"citat[13:22:-1] = {citat[22:12:-1]}")
 
 print(f"citat[::-1] = {citat[::-1]}")
 
