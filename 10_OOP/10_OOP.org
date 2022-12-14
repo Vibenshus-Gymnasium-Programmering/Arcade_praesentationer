@@ -1,3 +1,261 @@
 #+title: Objektorienteret programmering
 #+subtitle: Klasser og objekter
 #+options: ^:{}
+
+Vi skal i denne præsentation se nærmere på begreberne klasser og objekter, som udgør rygraden i ObjektOrienteret Programmering (OOP). I meget korte træk går OOP ud på at definere /klasser/, som kan indkapsle /træk/ (variable og metoder) for en given genstand. Ud fra klasserne kan man må så oprette (forskellige) /objekter/, som kan have sine egne værdier for variablerne i klassen. Hvis man er bekendt med den græske filosof Platon, kan man betragte en klasse, som hørende til /idéernes/ verden, altså et /blueprint/, mens objekterne hører til /fænomenernes/ verden, altså /faktiske/ objekter i den fysiske verden. I kan få en lynintroduktion til Platons bedste og værste idéer her: [[https://youtu.be/jLesc5lITvo]].
+
+Dette virker måske noget abstrakt, når det bare er skrevet med ord. Det er meget nemmere at forstå, hvis man arbejder med nogle eksempler, så det vil vi gøre i løbet af denne præsentation. I vil både blive præsentatereet for klasser, som er skrevet fra bunden, og for klasser, som /nedarver/ fra andre klasser, hvor man så blot skal bygge ovenpå.
+
+Det første eksempel, I vil støde på, er en /bold/.
+
+* En hoppende bold - En klasse skrevet fra bunden af
+Hvilke egenskaber skal en bold have, for at kunne bevæge sig rundt i et vindue på skærmen?
+
+Hvis man tænker sig om, kommer man nok hurtigt frem til:
+- en position
+- en hastighed (fart og retning)
+
+Efter endnu lidt tankevirksomhed indser man, at bolden måske også skal have:
+- en størrelse (radius)
+- en farve (for at skelne den fra andre bolde)
+
+I selve programmet skal bolden også være i stand til at
+- bevæge sig, altså /opdatere/ sin position,
+- og den skal kunne /tegnes/ på sin position.
+
+De 4 første punkter giver anledning til 4 /instansvariable/, mens de to sidste punkter giver anledning til 2 /metoder/.
+
+En bold med disse egenskaber kan f.eks. se således ud, når den er skrevet som en klasse fra bunden i =python=:
+
+#+begin_src python :exports both :results output :eval never-export
+class Bold:
+    """ Denne klasse beskriver/styrer en bold, som hopper i vinduet på skærmen. """
+
+    def __init__(self, position_x, position_y, hastighed_x, hastighed_y, radius, farve):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.hastighed_x = hastighed_x
+        self.hastighed_y = hastighed_y
+        self.radius = radius
+        self.farve = farve
+
+    def update(self):
+        """ Denne metode kontrollere bolden bevægelse. """
+
+        # Bevæger bolden
+        self.position_x += self.hastighed_x
+        self.position_y += self.hastighed_y
+
+        # Tjekker for om bolden rammer kanterne på vinduet
+        # Når/hvis bolden rammer en kant, skifter den retning
+        if self.position_x < self.radius:
+            self.hastighed_x *= -1
+        if self.position_x > SKAERMBREDDE - self.radius:
+            self.hastighed_x *= -1
+        if self.position_y < self.radius:
+            self.hastighed_y *= -1
+        if self.position_y > SKAERMHOEJDE- self.radius:
+            self.hastighed_y *= -1
+
+    def draw(self):
+        """ Tegner bolden som en simpel udfyldt cirkel vha arcade. """
+        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.farve)
+#+end_src
+
+#+RESULTS:
+
+Man kan godt køre selve koden nu, men den vil ikke vise noget på skærmen overhovedet. Det er der to grunde til. For det første har vi kun defineret /idéen/ / blueprintet for en bold, men vi har ikke oprettet en /faktisk/ bold (et objekt af klassen Bold) endnu. For det andet mangler vi stadig et vindue at tegne bolden inden i. For at blive endnu mere fortrolige med klasse og OOP skal I derfor nu se en implementering af et vindue i arcade ved hjælp af /nedarving/ fra en i forvejen defineret klasse.
+
+* Et vindue - En klasse nedarvet fra en anden klasse
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+
+SKAERMBREDDE= 640
+SKAERMHOEJDE= 480
+
+
+class Vindue(arcade.Window):
+    """ Vores nye vinduesklasse. """
+
+    def __init__(self, bredde, hoejde, titel):
+        """ Initialisator. """
+
+        # Call the parent class's init function
+        # Kalder forældreklasse(n/rnes) initialisatorer
+        super().__init__(bredde, hoejde, titel)
+        # Sætter baggrundsfarven én gang
+        arcade.set_background_color(arcade.color.ASH_GREY)
+
+    def on_draw(self):
+        self.clear() # Man kunne også skrive arcade.start_render()
+
+
+def main():
+    vindue = Vindue(SKAERMBREDDE, SKAERMHOEJDE, "Vindue som en klasse")
+
+    arcade.run()
+
+
+main()
+#+end_src
+
+Outputtet af denne kode er blot vinduet, som ses på figuren:
+
+#+DOWNLOADED: screenshot @ 2022-12-13 22:14:28
+#+attr_html: :width 600px
+#+attr_latex: :width 7cm
+[[file:img/2022-12-13_22-14-28_screenshot.png]]
+
+
+I dette eksempel kan det ses, at vores =Vindue=-klasse nedarver fra =arcade.Window=, da det står i en parentes efter =Vindue=. I initialisatoren kaldes initialisatoren til alle forældreklasserne (i dette tilfælde er der kun én forælder). Det kan ses ved referencesn til =super()=. Metoden =on_draw= /overskriver/ den samme metode i forældreklassen (arcade.Window). I dette tilfælde gør den ikke andet end rydde vinduet, selvom der er ikke noget at rydde. Det er først under funktionen =main= at der oprettes et objekt af denne nye klasse. Vi kalder den =vindue=.
+
+Lad os kombinere disse to klasser til at få en bold til at hoppe rund inde i et vindue.
+
+* En hoppende bold i et vindue
+
+Vi skal nu kombinere klasserne fra de to tidligere eksempler. Se nærmere i kodeblokken:
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+
+SKAERMBREDDE= 640
+SKAERMHOEJDE= 480
+
+# Klassen Bold er bare kopieret fra det forrige eksempel
+class Bold:
+    """ Denne klasse beskriver/styrer en bold, som hopper i vinduet på skærmen. """
+
+    def __init__(self, position_x, position_y, hastighed_x, hastighed_y, radius, farve):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.hastighed_x = hastighed_x
+        self.hastighed_y = hastighed_y
+        self.radius = radius
+        self.farve = farve
+
+    def update(self):
+        """ Denne metode kontrollere bolden bevægelse. """
+
+        # Bevæger bolden
+        self.position_x += self.hastighed_x
+        self.position_y += self.hastighed_y
+
+        # Tjekker for om bolden rammer kanterne på vinduet
+        # Når/hvis bolden rammer en kant, skifter den retning
+        if self.position_x < self.radius:
+            self.hastighed_x *= -1
+        if self.position_x > SKAERMBREDDE - self.radius:
+            self.hastighed_x *= -1
+        if self.position_y < self.radius:
+            self.hastighed_y *= -1
+        if self.position_y > SKAERMHOEJDE- self.radius:
+            self.hastighed_y *= -1
+
+    def draw(self):
+        """ Tegner bolden som en simpel udfyldt cirkel vha arcade. """
+        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.farve)
+
+
+# Det er selve klassen Vindue som skal holde styr på
+# bolden. Derfor vil der være ændringer her ift forrige eksempel
+class Vindue(arcade.Window):
+    """ Vores nye vinduesklasse. """
+
+    def __init__(self, bredde, hoejde, titel):
+        """ Initialisator. """
+
+        # Call the parent class's init function
+        # Kalder forældreklasse(n/rnes) initialisatorer
+        super().__init__(bredde, hoejde, titel)
+        # Sætter baggrundsfarven én gang
+        arcade.set_background_color(arcade.color.ASH_GREY)
+        self.setup()
+
+    def setup(self):
+        self.bold = Bold(100, 200, 3, -5, 5, arcade.csscolor.RED)
+
+    def update(self, delta_tid):
+        self.bold.update()
+
+    def on_draw(self):
+        self.clear() # Man kunne også skrive arcade.start_render()
+        self.bold.draw()
+
+
+def main():
+    vindue = Vindue(SKAERMBREDDE, SKAERMHOEJDE, "En hoppende bold i et vindue")
+
+    arcade.run()
+
+
+main()
+#+end_src
+
+
+** Opgaver
+1. Ændr på den nuværende bolds startposition, hastighed, størrelse og farve.
+2. Opret mindst 5 forskellige bolde med forskellige farver etc.
+   - Opret en /liste/ over bolde i vindueklassen =self_boldliste = []= under =__init__=.
+   - Opret nye bolde =bold = Bold(1, 2, 3, 4, 5, arcade.csscolor.BLUE)= og =append= dem til =self.boldliste=.
+   - Opdater /alle/ bolde i =self.boldliste= vha en for-løkke i =update=-metoden.
+   - Tegn /alle/ bolde i =self.boldliste= vha en for-løkke i =on_draw=-metoden.
+3. Opret /mange/ bolde med /tilfældige/ startpositioner, starthastigheder og måske tilfældige farver. Brug samme opbygning med =self.boldliste= etc fra forrige opgave.
+4. Få boldene til at bevæge sig hurtigere (eller langsommere) hver gang de rammer en kant.
+5. Find selv på andre (sjove/udfordrende) tilføjelser/ændringer.
+
+   
+* Så styr dog de bolde!
+
+Som det ser ud lige nu, bevæger boldene sig rundt på egen hånd. Det eneste vi kan styre er deres begyndelsesbetingelser. I dette afsnit skal vi se på, hvordan vi som brugere kan styre objekter på skærmen i programmer skrevet ved hjælp af arcadebibliotektet. Før vi går i gang med det opretter vi først en basal boldklasse, som /ikke/ indeholder starthastigheder men kun position, radius og farve og heller ikke en =update=-metode. Opdateringen af bolden skal =Vindue=-klassen i arcade tage sig af.
+
+#+begin_src python :exports both :results none :eval never-export
+import arcade
+
+SKAERMBREDDE= 640
+SKAERMHOEJDE= 480
+class Bold:
+    """ Denne klasse beskriver/styrer en bold, som hopper i vinduet på skærmen. """
+
+    def __init__(self, position_x, position_y, hastighed_x, hastighed_y, radius, farve):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.hastighed_x = hastighed_x
+        self.hastighed_y = hastighed_y
+        self.radius = radius
+        self.farve = farve
+
+    def draw(self):
+        """ Tegner bolden som en simpel udfyldt cirkel vha arcade. """
+        arcade.draw_circle_filled(self.position_x, self.position_y, self.radius, self.farve)
+
+class Vindue(arcade.Window):
+    """ Vores nye vinduesklasse. """
+
+    def __init__(self, bredde, hoejde, titel):
+        """ Initialisator. """
+
+        # Call the parent class's init function
+        # Kalder forældreklasse(n/rnes) initialisatorer
+        super().__init__(bredde, hoejde, titel)
+        # Sætter baggrundsfarven én gang
+        arcade.set_background_color(arcade.color.ASH_GREY)
+        self.setup()
+
+    def setup(self):
+        self.bold = Bold(100, 200, 3, -5, 5, arcade.csscolor.RED)
+
+    def update(self, delta_tid):
+        pass
+
+    def on_draw(self):
+        self.clear() # Man kunne også skrive arcade.start_render()
+        self.bold.draw()
+
+def main():
+    vindue = Vindue(SKAERMBREDDE, SKAERMHOEJDE, "En hoppende bold i et vindue")
+
+    arcade.run()
+
+main()
+#+end_src

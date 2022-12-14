@@ -422,6 +422,22 @@ print(f"citat[::-1] = {citat[::-1]}")
 
 #+end_src
 
+#+RESULTS:
+#+begin_example
+citat[0] = K
+citat[1] = a
+citat[-1] = .
+citat[-7] = S
+citat[:6] = Kan vi
+citat[6:] =  få en danskvand til Svenne! Danskvand til Svenne.
+citat[-6:] = venne.
+citat[:-6] = Kan vi få en danskvand til Svenne! Danskvand til S
+citat[13:22] = danskvand
+citat[13:22:2] = dnkad
+citat[13:22:-1] =  dnavksnad
+citat[::-1] = .ennevS lit dnavksnaD !ennevS lit dnavksnad ne åf iv naK
+#+end_example
+
 - Afprøv koden, som den er i første omgang.
 - Tilføj selv ny kode, som kan teste jeres forståelse af syntaksen af.
 

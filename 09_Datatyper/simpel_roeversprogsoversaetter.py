@@ -1,5 +1,3 @@
-alm_tekst = "Her er noget almindelig tekst."
-
 def til_roeversprog(alm_tekst):
     roeversprog = ""
     for karakter in alm_tekst:
@@ -8,4 +6,6 @@ def til_roeversprog(alm_tekst):
         else:
             roeversprog += karakter
     return roeversprog
-print(til_roeversprog(alm_tekst))
+
+while True:
+    print(til_roeversprog(input("Skriv din tekst her: ")))
