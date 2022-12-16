@@ -6,7 +6,9 @@ Vi skal i denne præsentation se nærmere på begreberne klasser og objekter, so
 
 Dette virker måske noget abstrakt, når det bare er skrevet med ord. Det er meget nemmere at forstå, hvis man arbejder med nogle eksempler, så det vil vi gøre i løbet af denne præsentation. I vil både blive præsentatereet for klasser, som er skrevet fra bunden, og for klasser, som /nedarver/ fra andre klasser, hvor man så blot skal bygge ovenpå.
 
-Det første eksempel, I vil støde på, er en /bold/.
+Der findes faktisk en lærebog til programmering på systime. Den hedder [[https://programmering.systime.dk]]. I kan læse mere om objektorienteret programmering i kapitel 7 [[https://programmering.systime.dk/?id=207]].
+
+Det første eksempel, I vil støde på i denne præsentation er en /bold/.
 
 * En hoppende bold - En klasse skrevet fra bunden af
 Hvilke egenskaber skal en bold have, for at kunne bevæge sig rundt i et vindue på skærmen?
@@ -64,7 +66,7 @@ class Bold:
 
 #+RESULTS:
 
-Man kan godt køre selve koden nu, men den vil ikke vise noget på skærmen overhovedet. Det er der to grunde til. For det første har vi kun defineret /idéen/ / blueprintet for en bold, men vi har ikke oprettet en /faktisk/ bold (et objekt af klassen Bold) endnu. For det andet mangler vi stadig et vindue at tegne bolden inden i. For at blive endnu mere fortrolige med klasse og OOP skal I derfor nu se en implementering af et vindue i arcade ved hjælp af /nedarving/ fra en i forvejen defineret klasse.
+Man kan godt køre selve koden nu, men den vil ikke vise noget på skærmen overhovedet. Det er der to grunde til. For det første har vi kun defineret /idéen/ / blueprintet for en bold, men vi har ikke oprettet en /faktisk/ bold (et objekt af klassen Bold) endnu. For det andet mangler vi stadig et vindue at tegne bolden i. For at blive endnu mere fortrolige med klasse og OOP skal I derfor nu se en implementering af et vindue i arcade ved hjælp af /nedarving/ fra en i forvejen defineret klasse.
 
 * Et vindue - En klasse nedarvet fra en anden klasse
 
@@ -114,7 +116,7 @@ Lad os kombinere disse to klasser til at få en bold til at hoppe rund inde i et
 
 * En hoppende bold i et vindue
 
-Vi skal nu kombinere klasserne fra de to tidligere eksempler. Se nærmere i kodeblokken:
+Vi skal nu kombinere klasserne fra de to tidligere eksempler. Se nærmere i kodeblokken. Læg særligt mærke til, hvordan det sørges for at bolden bliver inden for vinduet.
 
 #+begin_src python :exports both :results none :eval never-export
 import arcade
@@ -440,6 +442,7 @@ def main():
 main()
 #+end_src
 
+[[./img/bold_keyboard_inden_for_vindue.gif]]
 * Ikke beerpong - "bare" PONG
 #+attr_html: :width 50%
 [[./img/beerpong.jpg]]
@@ -453,7 +456,8 @@ Need to have:
 - En Vindue-klasse, som holder styr på selve spillet
 - En Bold-klasse
   - Skal holde sig inden for toppen og bunden af vinduet
-  - Skal resettes, når den kommer uden for vinduets højre og venstre side. (Hvis man bare vil spille med et "bat", så skal bolden også bare holde sig inden for højre eller venstre side og kun resettets hvis den kommer uden for den anden side.
+  - Skal resettes, når den kommer uden for vinduets højre og venstre side. (Hvis man bare vil spille med et "bat", så skal bolden også bare holde sig inden for højre eller venstre side og kun resettets, hvis den kommer uden for den anden side.
+  - Bolden skal skifte retning, når den rammer et bat. Det er nok *Vindue-klassen*, som skal holde styr på dette.
 - En Bat-klasse:
   - Et rektangel, som kan bevæge sig op og ned vha. keyboardet, men ikke til siderne.
   - Skal holde sig inden for skærmen.
@@ -462,8 +466,9 @@ Need to have:
 Nice to have:
 - Hold styr på point.
 - Tilfældig retning på bolden, når den resettes.
-- Single- eller multiplayer.
+- Boldens fart øges, når den rammer et bat.
 - Mere end én bold.
+- Single- eller multiplayer.
 - I kan selv komme på flere idéer.
 
 
