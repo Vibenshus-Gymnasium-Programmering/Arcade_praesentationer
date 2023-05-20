@@ -544,3 +544,25 @@ Nice to have:
 - I kan selv komme på flere idéer.
 
 
+* Sprites
+
+[[./img/Sprite-Denmark.png]]
+
+Arh, det er ikke lige den form for sprites. :)
+
+I stedet skal vi til at arbejde med de indbyggede sprite-klasser i =arcade=-bibliotektet. Fidusen ved at anvende dem i stedet for vores "hjemmedelavede" klasser er, at der er gjort en masse forarbejde i forhold til optimering af animation og kollisioner mellem sprites.
+
+Lad os se, hvordan vores simple pong-spil kan se ud ved brugen af =sprites=.
+
+#+begin_src python :exports both :results output :eval never-export :comments link :tangle pong_with_sprites.py
+import arcade
+
+class PongGame(arcade.Window):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+#+end_src
+
+
+
+
+* View - i stedet for Window
